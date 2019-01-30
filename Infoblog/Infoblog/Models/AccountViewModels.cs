@@ -70,6 +70,14 @@ namespace Infoblog.Models
         public string Email { get; set; }
 
         [Required]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$", ErrorMessage = "Invalid Firstname, use letters A-Z")]
+        public string Firstname { get; set; }
+
+        [Required]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$", ErrorMessage = "Invalid Lastname, use letters A-Z")]
+        public string Lastname { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
