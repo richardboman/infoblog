@@ -1,7 +1,18 @@
-﻿
-@{
-    ViewBag.Title = "ShowPost";
+﻿@using Infoblog.Models
+@model FormalPostViewModel
+
+<h2>Informell blogginlägg</h2>
+
+<hr />
+@foreach (var p in Model.Posts)
+{
+    <h3> @p.Title </h3> 
+    <h4> @p.Author </h4>
+
+    <p> @p.Content </p>
+    <hr />
 }
 
-<h2>ShowPost</h2>
+@htm.RenderPartial("WritePost")
+
 

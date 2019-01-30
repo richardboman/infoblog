@@ -23,8 +23,7 @@ namespace Infoblog.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<PostModel> Post { get; set; }
-
+        public DbSet<FormalPostModel> Post { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
