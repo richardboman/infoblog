@@ -31,6 +31,8 @@ namespace Infoblog.Controllers
 
         public ActionResult _NewPostPartial()
         {
+            var ctx = new ApplicationDbContext();
+
             var model = new EducationPostModel
             {
                 Author = User.Identity.Name,
