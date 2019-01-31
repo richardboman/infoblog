@@ -1,4 +1,6 @@
 ﻿using Infoblog.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,10 +33,16 @@ namespace Infoblog.Controllers
 
         public ActionResult _NewPostPartial()
         {
+            var ctx = new ApplicationDbContext();
+            var userId = User.Identity.GetUserId();
+            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var userManager = new UserManager<ApplicationUser>(store);
+            ApplicationUser user = userManager.FindById(userId);
             var model = new EducationPostModel
             {
-                Author = User.Identity.Name,
-                Date = DateTime.Now
+
+                Author = user.FirstName + " " + user.LastName,
+            Date = DateTime.Now
             };
             return PartialView("_NewPostPartial", model);
         }

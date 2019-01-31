@@ -1,4 +1,6 @@
 ﻿using Infoblog.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Infoblog.Controllers
 {
+    [Authorize]
     public class ScienceController : Controller
     {
         // GET: Science
@@ -28,9 +31,14 @@ namespace Infoblog.Controllers
 
         public ActionResult NewSciencePostPartial()
         {
+            var ctx = new ApplicationDbContext();
+            var userId = User.Identity.GetUserId();
+            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var userManager = new UserManager<ApplicationUser>(store);
+            ApplicationUser user = userManager.FindById(userId);
             var model = new ScienceModel
             {
-                Author = User.Identity.Name,
+                Author = user.FirstName + " " + user.LastName,
                 Date = DateTime.Now
             };
 
