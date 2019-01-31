@@ -211,6 +211,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\ScienceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -224,6 +225,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\PostViewModel.cs" />
+    <Compile Include="Models\ScienceModel.cs" />
+    <Compile Include="Models\ScienceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -287,6 +290,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Post\ShowPost.cshtml" />
+    <Content Include="Views\Science\ShowSciencePosts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
