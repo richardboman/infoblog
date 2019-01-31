@@ -9,7 +9,8 @@ namespace Infoblog.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
+            ContextKey = "Infoblog.Models.ApplicationDbContext";
         }
 
         protected override void Seed(Infoblog.Models.ApplicationDbContext context)
