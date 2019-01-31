@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Infoblog.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Infoblog.Controllers
 {
@@ -25,12 +27,16 @@ namespace Infoblog.Controllers
         }
 
         public ActionResult WritePost(FormalPostViewModel postmodel)
-        {
+        { 
             var ctx = new ApplicationDbContext();
+            var userId = User.Identity.GetUserId();
+            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var userManager = new UserManager<ApplicationUser>(store);
+            ApplicationUser user = userManager.FindById(userId);
             var post = new FormalPostModel();
             post.Title = postmodel.Title;
             post.Content = postmodel.Content;
-            post.Author = postmodel.Author;
+            post.Author = user.FirstName + " " + user.LastName;
             ctx.Post.Add(post);
             ctx.SaveChanges();
 
