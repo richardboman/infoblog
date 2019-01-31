@@ -16,8 +16,23 @@ namespace Infoblog.Controllers
         public ActionResult EducationPostView()
         {
             var ctx = new ApplicationDbContext();
-            var model = ctx.EducationPosts.OrderByDescending(p => p.Date).ToList();
-            return View(model);
+            var currentUser = User.Identity.GetUserId();
+            var user = ctx.Users.SingleOrDefault(u => u.Id == currentUser);
+            var posts = ctx.EducationPosts.OrderByDescending(p => p.Date).ToList();
+            var postViewModels = new List<EducationPostViewModel>();
+            foreach(var post in posts)
+            {
+                postViewModels.Add(new EducationPostViewModel()
+                {
+                    Author = post.Author,
+                    Content = post.Content,
+                    Title = post.Title,
+                    Date = post.Date,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                });
+            }
+            return View(postViewModels);
         }
 
         [HttpPost]
@@ -33,16 +48,10 @@ namespace Infoblog.Controllers
 
         public ActionResult _NewPostPartial()
         {
-            var ctx = new ApplicationDbContext();
-            var userId = User.Identity.GetUserId();
-            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-            var userManager = new UserManager<ApplicationUser>(store);
-            ApplicationUser user = userManager.FindById(userId);
             var model = new EducationPostModel
             {
-
-                Author = user.FirstName + " " + user.LastName,
-            Date = DateTime.Now
+                Author = User.Identity.Name,
+                Date = DateTime.Now
             };
             return PartialView("_NewPostPartial", model);
         }
