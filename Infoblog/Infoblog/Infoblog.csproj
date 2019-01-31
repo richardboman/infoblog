@@ -259,6 +259,11 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="UploadedFiles\5ea348a1bee4adb55c09cc66834320ba195428371.jpg" />
+    <Content Include="UploadedFiles\adult-business-chill-450271190623017.jpg" />
+    <Content Include="UploadedFiles\Arne_bror.jpg" />
+    <Content Include="UploadedFiles\beautiful-brunette-cute-774909190346401.jpg" />
+    <Content Include="UploadedFiles\pexels-photo-372042190544694.jpeg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -313,6 +318,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

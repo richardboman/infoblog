@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,7 +27,7 @@ namespace Infoblog.Controllers
 
             return View(pvm);
         }
-
+        [HttpPost]
         public ActionResult WritePost(FormalPostViewModel postmodel)
         { 
             var ctx = new ApplicationDbContext();
@@ -39,8 +40,20 @@ namespace Infoblog.Controllers
             post.Content = postmodel.Content;
             post.Author = user.FirstName + " " + user.LastName;
             post.Date = DateTime.Now;
-            ctx.Post.Add(post);
-            ctx.SaveChanges();
+            if (postmodel.File != null && postmodel.File.ContentLength > 0)
+            {
+                // extract only the filename
+                var fileName = Path.GetFileName(postmodel.File.FileName);
+                // store the file inside ~/App_Data/uploads folder
+                var path = Path.Combine(Server.MapPath("~/UploadedFiles/"), fileName);
+                post.FilePath = "~/UploadedFiles/" + fileName;
+                postmodel.File.SaveAs(path);
+
+                
+
+            }
+                ctx.Post.Add(post);
+                ctx.SaveChanges();
 
             return Redirect(Request.UrlReferrer.ToString());
         }

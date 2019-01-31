@@ -14,5 +14,7 @@ namespace Infoblog.Models
         public string Title { get; set; }
         public string Content { get; set; }
         public string Author { get; set; }
+        public string FilePath { get; set; }
+        public HttpPostedFileBase File { get; set; }
     }
 }

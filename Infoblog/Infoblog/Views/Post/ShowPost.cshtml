@@ -8,8 +8,12 @@
 {
     <h3>@p.Title</h3>
     <p>@p.Content</p>
+    <div>
+        <img src="@Url.Content(p.FilePath)" style="max-width: 200px;" />
+    </div>
     <span class="text-info">@p.Author</span>
     <span class="text-info">@p.Date</span>
+    
 <hr />
 }
 
