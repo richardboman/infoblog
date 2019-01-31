@@ -10,8 +10,18 @@ namespace Infoblog.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Display(Name = "Titel")]
         public string Title { get; set; }
+
+        [Display(Name = "Meddelande")]
         public string Content { get; set; }
+
+        [Display(Name = "Avsändare")]
         public string Author { get; set; }
+
+        [Display(Name = "Datum")]
+        public DateTime Date { get; set; }
     }
 }
+

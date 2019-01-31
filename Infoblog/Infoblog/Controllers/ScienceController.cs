@@ -10,33 +10,32 @@ namespace Infoblog.Controllers
     public class ScienceController : Controller
     {
         // GET: Science
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult ShowSciencePosts()
+        public ActionResult SciencePostView()
         {
             var ctx = new ApplicationDbContext();
-            var viewModel = new ScienceViewModel();
-            viewModel.SciencePosts = ctx.SciencePost.ToList();
-
-            return View(viewModel);
+            var model = ctx.SciencePost.OrderByDescending(sp => sp.Date).ToList();
+            return View(model);
         }
 
-        public void AddSciencePost(ScienceModel model)
+        public ActionResult AddSciencePost(ScienceModel post)
         {
-            var sciencePost = new ScienceModel()
+
+            var ctx = new ApplicationDbContext();
+            ctx.SciencePost.Add(post);
+            ctx.SaveChanges();
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        public ActionResult NewSciencePostPartial()
+        {
+            var model = new ScienceModel
             {
-                Title = model.Title,
-                Content = model.Content,
-                Author = model.Author
+                Author = User.Identity.Name,
+                Date = DateTime.Now
             };
 
-            var ctx = new ApplicationDbContext();
-            // "SciencePost" nedan är namnet på tabellen.
-            ctx.SciencePost.Add(sciencePost);
-            ctx.SaveChanges();
+            return PartialView("NewSciencePostPartial", model);
         }
     }
+
 }
