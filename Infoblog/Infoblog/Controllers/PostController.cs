@@ -22,7 +22,7 @@ namespace Infoblog.Controllers
         {
             var ctx = new ApplicationDbContext();
             var pvm = new FormalPostViewModel();
-            pvm.Posts = ctx.Post.ToList();
+            pvm.Posts = ctx.Post.OrderByDescending(p => p.Date).ToList();
 
             return View(pvm);
         }
