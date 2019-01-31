@@ -6,12 +6,14 @@ using System.Web;
 
 namespace Infoblog.Models
 {
-    public class PostModel
+    public class FormalPostViewModel
     {
+        public List<FormalPostModel> Posts { get; set; }
         [Key]
         public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public string Author { get; set; }
+
     }
 }

@@ -219,18 +219,30 @@
     <Compile Include="Migrations\201901301323162_Test.Designer.cs">
       <DependentUpon>201901301323162_Test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901310851225_InitialMigrations.cs" />
+    <Compile Include="Migrations\201901310851225_InitialMigrations.Designer.cs">
+      <DependentUpon>201901310851225_InitialMigrations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InformalPostModel.cs" />
+    <Compile Include="Models\InformalPostViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\ScienceModel.cs" />
     <Compile Include="Models\ScienceViewModel.cs" />
+    <Compile Include="Models\FormalPostModel.cs" />
+    <Compile Include="Models\FormalPostViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-Infoblog-20190125011716.mdf" />
+    <Content Include="App_Data\aspnet-Infoblog-20190125011716_log.ldf">
+      <DependentUpon>aspnet-Infoblog-20190125011716.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -294,7 +306,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Content Include="Views\Post\WritePost.cshtml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -311,6 +325,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201901301323162_Test.resx">
       <DependentUpon>201901301323162_Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901310851225_InitialMigrations.resx">
+      <DependentUpon>201901310851225_InitialMigrations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
