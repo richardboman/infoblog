@@ -1,4 +1,6 @@
 ﻿using Infoblog.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +16,23 @@ namespace Infoblog.Controllers
         public ActionResult EducationPostView()
         {
             var ctx = new ApplicationDbContext();
-            var model = ctx.EducationPosts.OrderByDescending(p => p.Date).ToList();
-            return View(model);
+            var currentUser = User.Identity.GetUserId();
+            var user = ctx.Users.SingleOrDefault(u => u.Id == currentUser);
+            var posts = ctx.EducationPosts.OrderByDescending(p => p.Date).ToList();
+            var postViewModels = new List<EducationPostViewModel>();
+            foreach(var post in posts)
+            {
+                postViewModels.Add(new EducationPostViewModel()
+                {
+                    Author = post.Author,
+                    Content = post.Content,
+                    Title = post.Title,
+                    Date = post.Date,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                });
+            }
+            return View(postViewModels);
         }
 
         [HttpPost]
