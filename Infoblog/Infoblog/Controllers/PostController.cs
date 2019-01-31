@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Infoblog.Controllers
 {
+    [Authorize]
     public class PostController : Controller
     {
         // GET: Post
@@ -37,6 +38,7 @@ namespace Infoblog.Controllers
             post.Title = postmodel.Title;
             post.Content = postmodel.Content;
             post.Author = user.FirstName + " " + user.LastName;
+            post.Date = DateTime.Now;
             ctx.Post.Add(post);
             ctx.SaveChanges();
 

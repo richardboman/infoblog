@@ -25,8 +25,9 @@ namespace Infoblog.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<PostModel> Post { get; set; }
+        public DbSet<FormalPostModel> Post { get; set; }
         public DbSet<EducationPostModel> EducationPosts { get; set; }
+        public DbSet<ScienceModel> SciencePost { get; set; }
         
 
         public ApplicationDbContext()
