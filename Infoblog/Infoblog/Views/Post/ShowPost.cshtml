@@ -1,13 +1,13 @@
 ﻿@using Infoblog.Models
 @model FormalPostViewModel
 
-<h2>Informell blogginlägg</h2>
+<h2>Informell blogg</h2>
 
 <hr />
 @foreach (var p in Model.Posts)
 {
     <h3> @p.Title </h3> 
-    <h4> @p.Author </h4>
+    <h5>Skriven av: @p.Author </h5>
 
     <p> @p.Content </p>
     <hr />
