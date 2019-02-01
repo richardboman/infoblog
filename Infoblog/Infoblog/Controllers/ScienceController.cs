@@ -51,6 +51,20 @@ namespace Infoblog.Controllers
             return View(post);
         }
 
+        public ActionResult RemovePost(EducationPostViewModel postmodel)
+        {
+            var ctx = new ApplicationDbContext();
+            var post = ctx.SciencePost.SingleOrDefault(p => p.Id == postmodel.Id);
+            if (post != null)
+            {
+                var postToRemove = ctx.SciencePost.Find(postmodel.Id);
+                ctx.SciencePost.Remove(postToRemove);
+                ctx.SaveChanges();
+            }
+
+            return RedirectToAction("SciencePostView", "Science");
+        }
+
         [HttpPost]
         [ActionName("EditPost")]
         public virtual ActionResult SaveEdit(EducationPostViewModel post)
