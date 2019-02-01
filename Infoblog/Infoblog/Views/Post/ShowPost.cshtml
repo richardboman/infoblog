@@ -2,29 +2,31 @@
 @model FormalPostViewModel
 
 <h2>Formell Blogg</h2>
-<hr />
+
 @Html.Partial("WritePost")
-<hr />
-@foreach (var p in Model.Posts)
-{
 
-    <h3>@p.Title</h3>
-    <p>@p.Content</p>
-    <span>
-        @if (p.FilePath != null)
-        {
+    @foreach (var p in Model.Posts)
+    {
+    <div class="row">
+        <h3>@p.Title</h3>
+        <p>@p.Content</p>
+        <span>
+            @if (p.FilePath != null)
+            {
 
-            <a href="@Url.Content(p.FilePath)" style="max-width: 200px;" download="@p.FilePath"> @p.FilePath </a>
+                <a href="@Url.Content(p.FilePath)" style="max-width: 200px;" download="@p.FilePath"> @p.FilePath </a>
 
+            }
+
+        </span>
+        <br />
+        <span class="text-info">@p.Author</span>
+        <span class="text-info">@p.Date</span>
+
+        <hr />
+        </div>
         }
-
-    </span>
-    <br />
-    <span class="text-info">@p.Author</span>
-    <span class="text-info">@p.Date</span>
-
-    <hr />
-}
+   
 
 
 
