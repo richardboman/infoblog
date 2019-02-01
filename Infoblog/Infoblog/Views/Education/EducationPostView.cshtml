@@ -22,7 +22,7 @@
         {
             @Html.ActionLink("Ändra", "EditPost", "Education", new { Id = p.Id, Content = p.Content, Title = p.Title }, 
                 new { @class = "btn btn-warning" })
-            @Html.ActionLink("Ta bort", "RemovePost", "Education", new { @class = "btn btn-danger" })
+            @Html.ActionLink("Ta bort", "RemovePost", "Education", new { Id = p.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Är du säker på att du vill ta bort detta inlägg?');" } )
         }
     </div>
     }

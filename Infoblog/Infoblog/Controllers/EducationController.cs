@@ -65,6 +65,20 @@ namespace Infoblog.Controllers
             return RedirectToAction("EducationPostView", "Education");
         }
 
+        public ActionResult RemovePost(EducationPostViewModel postmodel)
+        {
+            var ctx = new ApplicationDbContext();
+            var post = ctx.EducationPosts.SingleOrDefault(p => p.Id == postmodel.Id);
+            if (post != null)
+            {
+                var postToRemove = ctx.EducationPosts.Find(postmodel.Id);
+                ctx.EducationPosts.Remove(postToRemove);
+                ctx.SaveChanges();
+            }
+            
+            return RedirectToAction("EducationPostView", "Education");
+        }
+
         public ActionResult _NewPostPartial()
         {
             var model = new EducationPostModel
