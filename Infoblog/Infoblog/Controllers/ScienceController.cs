@@ -17,13 +17,12 @@ namespace Infoblog.Controllers
         {
             var ctx = new ApplicationDbContext();
             var posts = ctx.SciencePost.OrderByDescending(sp => sp.Date).ToList();
-            var postViewModels = new List<EducationPostViewModel>();
-            var userId = User.Identity.GetUserId();
-            var user = ctx.Users.SingleOrDefault(u => u.Id == userId);
+            var postViewModels = new List<PostViewModel>();
 
             foreach(var p in posts)
             {
-                postViewModels.Add(new EducationPostViewModel()
+                var user = ctx.Users.SingleOrDefault(u => u.Email == p.Author);
+                postViewModels.Add(new PostViewModel()
                 {
                     Id = p.Id,
                     Author = p.Author,
@@ -46,7 +45,7 @@ namespace Infoblog.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
-        public ActionResult EditPost(EducationPostViewModel post)
+        public ActionResult EditPost(PostViewModel post)
         {
             return View(post);
         }
@@ -67,7 +66,7 @@ namespace Infoblog.Controllers
 
         [HttpPost]
         [ActionName("EditPost")]
-        public virtual ActionResult SaveEdit(EducationPostViewModel post)
+        public virtual ActionResult SaveEdit(PostViewModel post)
         {
             var ctx = new ApplicationDbContext();
             var postToEdit = ctx.SciencePost.SingleOrDefault(p => p.Id == post.Id);
