@@ -50,7 +50,7 @@ namespace Infoblog.Controllers
             return View(post);
         }
 
-        public ActionResult RemovePost(EducationPostViewModel postmodel)
+        public ActionResult RemovePost(PostViewModel postmodel)
         {
             var ctx = new ApplicationDbContext();
             var post = ctx.SciencePost.SingleOrDefault(p => p.Id == postmodel.Id);
