@@ -16,8 +16,25 @@ namespace Infoblog.Controllers
         public ActionResult SciencePostView()
         {
             var ctx = new ApplicationDbContext();
-            var model = ctx.SciencePost.OrderByDescending(sp => sp.Date).ToList();
-            return View(model);
+            var posts = ctx.SciencePost.OrderByDescending(sp => sp.Date).ToList();
+            var postViewModels = new List<EducationPostViewModel>();
+            var userId = User.Identity.GetUserId();
+            var user = ctx.Users.SingleOrDefault(u => u.Id == userId);
+
+            foreach(var p in posts)
+            {
+                postViewModels.Add(new EducationPostViewModel()
+                {
+                    Id = p.Id,
+                    Author = p.Author,
+                    Content = p.Content,
+                    Title = p.Title,
+                    Date = p.Date,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                });
+            }
+            return View(postViewModels);
         }
 
         public ActionResult AddSciencePost(ScienceModel post)
@@ -29,6 +46,23 @@ namespace Infoblog.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
+        public ActionResult EditPost(EducationPostViewModel post)
+        {
+            return View(post);
+        }
+
+        [HttpPost]
+        [ActionName("EditPost")]
+        public virtual ActionResult SaveEdit(EducationPostViewModel post)
+        {
+            var ctx = new ApplicationDbContext();
+            var postToEdit = ctx.SciencePost.SingleOrDefault(p => p.Id == post.Id);
+            postToEdit.Content = post.Content;
+            postToEdit.Title = post.Title;
+            ctx.SaveChanges();
+            return RedirectToAction("SciencePostView", "Science");
+        }
+
         public ActionResult NewSciencePostPartial()
         {
             var ctx = new ApplicationDbContext();
@@ -38,7 +72,7 @@ namespace Infoblog.Controllers
             ApplicationUser user = userManager.FindById(userId);
             var model = new ScienceModel
             {
-                Author = user.FirstName + " " + user.LastName,
+                Author = User.Identity.Name,
                 Date = DateTime.Now
             };
 

@@ -8,6 +8,8 @@ namespace Infoblog.Models
 {
     public class EducationPostViewModel
     {
+        public int Id { get; set; }
+
         [Display(Name = "Titel")]
         public string Title { get; set; }
 

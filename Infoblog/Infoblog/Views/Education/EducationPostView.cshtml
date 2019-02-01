@@ -20,9 +20,9 @@
         <span class="text-info">@p.Date</span>
         @if (p.Author == User.Identity.Name)
         {
-            @Html.ActionLink("Ändra", "EditPost", "Education", new { @class = "btn btn-warning" })
+            @Html.ActionLink("Ändra", "EditPost", "Education", new { Id = p.Id, Content = p.Content, Title = p.Title }, 
+                new { @class = "btn btn-warning" })
             @Html.ActionLink("Ta bort", "RemovePost", "Education", new { @class = "btn btn-danger" })
-
         }
     </div>
     }
