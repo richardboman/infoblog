@@ -16,7 +16,7 @@
     <div class="row">
         <h2>@p.Title</h2>
         <p>@p.Content</p>
-        <span class="text-info">@p.Author</span> -
+        <span class="text-info">@p.FirstName @p.LastName - @p.Author</span> -
         <span class="text-info">@p.Date</span>
         @if (p.Author == User.Identity.Name)
         {
