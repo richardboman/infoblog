@@ -22,7 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(sp => sp.Content, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(sp => sp.Content, new { @class = "form-control" })
+                @Html.TextAreaFor(sp => sp.Content, 10, 100, new { @class = "form-control" })
             </div>
         </div>
 
