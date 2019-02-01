@@ -24,6 +24,7 @@ namespace Infoblog.Controllers
             {
                 postViewModels.Add(new EducationPostViewModel()
                 {
+                    Id = post.Id,
                     Author = post.Author,
                     Content = post.Content,
                     Title = post.Title,
@@ -44,6 +45,24 @@ namespace Infoblog.Controllers
             ctx.SaveChanges();
             return Redirect(Request.UrlReferrer.ToString());
 
+        }
+
+        
+        public ActionResult EditPost(EducationPostViewModel post)
+        {
+            return View(post);
+        }
+
+        [HttpPost]
+        [ActionName("EditPost")]
+        public virtual ActionResult SaveEdit(EducationPostViewModel post)
+        {
+            var ctx = new ApplicationDbContext();
+            var postToEdit = ctx.EducationPosts.SingleOrDefault(p => p.Id == post.Id);
+            postToEdit.Content = post.Content;
+            postToEdit.Title = post.Title;
+            ctx.SaveChanges();
+            return RedirectToAction("EducationPostView", "Education");
         }
 
         public ActionResult _NewPostPartial()

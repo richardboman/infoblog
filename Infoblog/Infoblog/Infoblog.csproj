@@ -306,6 +306,7 @@
     <Content Include="Views\Post\WritePost.cshtml" />
     <Content Include="Views\Science\NewSciencePostPartial.cshtml" />
     <Content Include="Views\Science\SciencePostView.cshtml" />
+    <Content Include="Views\Education\EditPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
