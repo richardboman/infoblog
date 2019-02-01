@@ -11,9 +11,9 @@ namespace Infoblog.Models
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "Titel")]
+        [Display(Name = "Rubrik")]
         public string Title { get; set; }
-        [Display(Name = "Innehåll")]
+        [Display(Name = "Meddelande")]
         public string Content { get; set; }
         [Display (Name = "Avsändare")]
         public string Author { get; set; }
