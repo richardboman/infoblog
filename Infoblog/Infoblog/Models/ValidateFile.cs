@@ -18,7 +18,7 @@ namespace Infoblog.Models
 
             if (file != null)
             {
-                var allowedExtensions = new[] { ".pdf", ".jpg",".png", ".doc","docx",".jpeg"};
+                var allowedExtensions = new[] {".pdf", ".jpg",".png", ".doc",".docx",".jpeg",".gif"};
                 var checkextension = Path.GetExtension(file.FileName).ToLower();
 
                 if (!allowedExtensions.Contains(checkextension))
