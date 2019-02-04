@@ -1143,6 +1143,12 @@ img {
 .img-circle {
   border-radius: 50%;
 }
+
+#PostImage
+{
+   max-width: 200px;
+
+}
 hr {
   margin-top: 20px;
   margin-bottom: 20px;
