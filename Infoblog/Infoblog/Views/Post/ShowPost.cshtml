@@ -7,25 +7,24 @@
 
     @foreach (var p in Model.Posts)
     {
-    <div class="row">
-        <h3>@p.Title</h3>
-        <p>@p.Content</p>
-        <span>
-            @if (p.FilePath != null)
-            {
+        <div class="row">
+            <h3>@p.Title</h3>
+            <p>@p.Content</p>
+            <span>
+                @if (p.FilePath != null)
+                {
 
-                <a href="@Url.Content(p.FilePath)" style="max-width: 200px;" download="@p.FilePath"> @p.FilePath </a>
+                    <a href="@Url.Content(p.FilePath)" style="max-width: 200px;" download="@p.FilePath"> @p.FilePath </a>
 
-            }
+                }
 
-        </span>
-        <br />
-        <span class="text-info">@p.Author</span>
-        <span class="text-info">@p.Date</span>
-
+            </span>
+            <br />
+            <span class="text-info">@p.Author</span>
+            <span class="text-info">@p.Date</span>
+        </div>
     <hr />
-
-}
+    }
     <p>@ViewBag.ErrorMessage</p>
 
 

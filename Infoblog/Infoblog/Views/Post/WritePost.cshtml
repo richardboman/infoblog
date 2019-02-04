@@ -1,13 +1,17 @@
 ﻿@model Infoblog.Models.FormalPostViewModel
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+}
 
-@using (Html.BeginForm("WritePost", "Post",FormMethod.Post, new { enctype = "Multipart/form-data" }))
+@using (Html.BeginForm("WritePost", "Post", FormMethod.Post, new { enctype = "Multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Skriv inlägg</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -22,9 +26,9 @@
                 @Html.TextAreaFor(model => model.Content, 10, 100, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
             </div>
-          
-            @Html.ValidationMessageFor(model => model.File)
+
             <input type="file" name="file" />
+            @Html.ValidationMessageFor(model => model.File)
 
         </div>
         <div class="form-group">

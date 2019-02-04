@@ -36,28 +36,31 @@ namespace Infoblog.Controllers
             var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
             var userManager = new UserManager<ApplicationUser>(store);
             ApplicationUser user = userManager.FindById(userId);
-            var post = new FormalPostModel();
-            post.Title = postmodel.Title;
-            post.Content = postmodel.Content;
-            post.Author = user.FirstName + " " + user.LastName;
-            post.Date = DateTime.Now;
+            var post = new FormalPostModel
+            {
+                Title = postmodel.Title,
+                Content = postmodel.Content,
+                Author = User.Identity.GetUserName(),
+                Date = DateTime.Now
+            };
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
+            {
+                if (postmodel.File != null && postmodel.File.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(postmodel.File.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedFiles/"), fileName);
+                    post.FilePath = "~/UploadedFiles/" + fileName;
+                    postmodel.File.SaveAs(path);
+                }
+                ctx.Post.Add(post);
+                ctx.SaveChanges();
+            }
+            else
             {
                 postmodel.Posts = ctx.Post.OrderByDescending(p => p.Date).ToList();
                 return View("ShowPost", postmodel);
             }
-
-            if (postmodel.File != null && postmodel.File.ContentLength > 0 )
-            {
-                var fileName = Path.GetFileName(postmodel.File.FileName);
-                var path = Path.Combine(Server.MapPath("~/UploadedFiles/"), fileName);
-                post.FilePath = "~/UploadedFiles/" + fileName;
-                postmodel.File.SaveAs(path);
-            }
-
-                ctx.Post.Add(post);
-                ctx.SaveChanges();
 
             return RedirectToAction("ShowPost");
         }

@@ -12,13 +12,19 @@ namespace Infoblog.Models
         [Key]
         public int Id { get; set; }
         [Display(Name = "Rubrik")]
+
+        [Required]
         public string Title { get; set; }
+
         [Display(Name = "Meddelande")]
         public string Content { get; set; }
+
         [Display(Name = "Avsändare")]
         public string Author { get; set; }
+
         [Display(Name = "Datum")]
         public DateTime Date { get; set; }
+
         public string FilePath { get; set; }
         [NotMapped]
         [ValidateFile(ErrorMessage = "Fel filformat. Välj, png, jpg, gif, doc, docx, pdf")]
