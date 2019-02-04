@@ -15,6 +15,10 @@ namespace Infoblog.Models
         public string Content { get; set; }
         public string Author { get; set; }
         public string FilePath { get; set; }
+
+        [ValidateFile(ErrorMessage = "Fel filformat. Välj, png, jpg, gif, doc, docx, pdf")]
         public HttpPostedFileBase File { get; set; }
+
+        
     }
 }

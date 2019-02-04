@@ -12,7 +12,7 @@ namespace Infoblog.Controllers
 {
     [Authorize]
     public class PostController : Controller
-    {
+    { 
         // GET: Post
         public ActionResult Index()
         {
@@ -28,6 +28,7 @@ namespace Infoblog.Controllers
             return View(pvm);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult WritePost(FormalPostViewModel postmodel)
         { 
             var ctx = new ApplicationDbContext();
@@ -40,22 +41,27 @@ namespace Infoblog.Controllers
             post.Content = postmodel.Content;
             post.Author = user.FirstName + " " + user.LastName;
             post.Date = DateTime.Now;
-            if (postmodel.File != null && postmodel.File.ContentLength > 0)
+
+            if (!ModelState.IsValid)
             {
-                // extract only the filename
+                postmodel.Posts = ctx.Post.OrderByDescending(p => p.Date).ToList();
+                return View("ShowPost", postmodel);
+            }
+
+            if (postmodel.File != null && postmodel.File.ContentLength > 0 )
+            {
                 var fileName = Path.GetFileName(postmodel.File.FileName);
-                // store the file inside ~/App_Data/uploads folder
                 var path = Path.Combine(Server.MapPath("~/UploadedFiles/"), fileName);
                 post.FilePath = "~/UploadedFiles/" + fileName;
                 postmodel.File.SaveAs(path);
-
-                
-
             }
+
                 ctx.Post.Add(post);
                 ctx.SaveChanges();
 
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("ShowPost");
         }
     }
 }
+
+   
