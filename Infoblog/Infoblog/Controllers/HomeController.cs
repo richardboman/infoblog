@@ -22,7 +22,7 @@ namespace Infoblog.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Kontakta oss";
 
             return View();
         }
