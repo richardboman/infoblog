@@ -38,11 +38,14 @@ namespace Infoblog.Controllers
         [HttpPost]
         public ActionResult Post(EducationPostModel post)
         {
+            if(ModelState.IsValid)
+            {
+                var ctx = new ApplicationDbContext();
+                ctx.EducationPosts.Add(post);
+                ctx.SaveChanges();
+            }
 
-            var ctx = new ApplicationDbContext();
-            ctx.EducationPosts.Add(post);
-            ctx.SaveChanges();
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("EducationPostView", "Education");
 
         }
 

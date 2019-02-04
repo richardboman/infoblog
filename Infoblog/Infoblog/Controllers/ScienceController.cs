@@ -38,10 +38,13 @@ namespace Infoblog.Controllers
 
         public ActionResult AddSciencePost(ScienceModel post)
         {
+            if(ModelState.IsValid)
+            {
+                var ctx = new ApplicationDbContext();
+                ctx.SciencePost.Add(post);
+                ctx.SaveChanges();
 
-            var ctx = new ApplicationDbContext();
-            ctx.SciencePost.Add(post);
-            ctx.SaveChanges();
+            }
             return Redirect(Request.UrlReferrer.ToString());
         }
 
