@@ -19,9 +19,9 @@ namespace Infoblog.Models
         public string Author { get; set; }
         [Display(Name = "Datum")]
         public DateTime Date { get; set; }
-
         public string FilePath { get; set; }
         [NotMapped]
+        [ValidateFile(ErrorMessage = "Fel filformat. Välj, png, jpg, gif, doc, docx, pdf")]
         public HttpPostedFileBase File { get; set; }
 
     }
