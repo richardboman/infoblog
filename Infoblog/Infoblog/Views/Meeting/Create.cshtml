@@ -1,0 +1,124 @@
+﻿@model Infoblog.Models.CreateMeetingViewModel
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>CreateMeetingViewModel</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @{ 
+                var hours = new List<SelectListItem>();
+                for(int i = 0; i < 24; i++)
+                {
+                    string displayTxt;
+                    if(i < 10)
+                    {
+                        displayTxt = "0" + i;
+                    }
+                    else
+                    {
+                        displayTxt = i.ToString();
+                    }
+                    hours.Add(new SelectListItem()
+                    {
+
+                        Text = displayTxt,
+                        Value = i.ToString()
+                    });
+                }
+
+                var minutes = new List<SelectListItem>();
+                for (int i = 0; i < 60; i++)
+                {
+                    string displayTxt;
+                    if (i < 10)
+                    {
+                        displayTxt = "0" + i;
+                    }
+                    else
+                    {
+                        displayTxt = i.ToString();
+                    }
+                    minutes.Add(new SelectListItem()
+                    {
+
+                        Text = displayTxt,
+                        Value = i.ToString()
+                    });
+                }
+            }
+            @Html.DropDownList("lstHours", hours, "Timmar")
+            @Html.DropDownList("lstMinutes", minutes, "Minuter")
+            <input type="date" id="date"/>
+            <buton id="btnAddMeetingTime">Lägg till</buton>
+
+            @Html.HiddenFor(m => m.MeetingTimes, Model.MeetingTimes )
+        </div>
+    </div>
+
+    @if(Model.MeetingTimes.Count > 0)
+    {
+    <ul>
+
+        @foreach (var s in Model.MeetingTimes)
+        {
+            if (int.Parse(s) < 10)
+            {
+                <li>@string.Format("0", s) </li>
+            }
+            else
+            {
+                <li>@s</li>
+            }
+        }
+    </ul>
+    }
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section scripts {
+<script>
+    $(document.ready(function () {
+        $('#btnAddMeetingTime').click(function () {
+            var hour = $('#lstHours').val();
+            var minute = $('#lstMinutes').val();
+            var date = $('#date').val();
+
+            $('#fullTime').val(date + " - " + hour + ":" + minute);
+
+        });
+    }));
+</script>    
+}
