@@ -315,6 +315,8 @@
     <Content Include="Views\Science\EditPost.cshtml" />
     <Content Include="Views\Meeting\Index.cshtml" />
     <Content Include="Views\Meeting\Create.cshtml" />
+    <Content Include="Views\Post\ShowInformalPost.cshtml" />
+    <Content Include="Views\Post\WriteInformalPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

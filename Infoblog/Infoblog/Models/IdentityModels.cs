@@ -36,6 +36,8 @@ namespace Infoblog.Models
         public DbSet<FormalPostModel> Post { get; set; }
         public DbSet<EducationPostModel> EducationPosts { get; set; }
         public DbSet<ScienceModel> SciencePost { get; set; }
+        public DbSet<InformalPostModel> InformalPost { get; set; }
+        
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<MeetingPoll> MeetingPolls { get; set; }
 

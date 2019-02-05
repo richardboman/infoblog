@@ -1,0 +1,42 @@
+﻿@model Infoblog.Models.PostViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ändra inlägg</title>
+</head>
+<body>
+    @using (Html.BeginForm("EditPost", "Post", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Ändra ditt inlägg</h4>
+        <hr />
+        @Html.HiddenFor(m => m.Author, Model.Author)
+        @Html.HiddenFor(m => m.Date, Model.Date)
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Title, Model.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Content, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.Content, 10, 100, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Content, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Skicka" />
+            </div>
+        </div>
+    }
+</body>
+</html>
+
+
