@@ -64,6 +64,52 @@ namespace Infoblog.Controllers
 
             return RedirectToAction("ShowPost");
         }
+
+        public ActionResult ShowInformalPost()
+        {
+            var ctx = new ApplicationDbContext();
+            var pvm = new InformalPostViewModel();
+            pvm.InformalPosts = ctx.InformalPost.OrderByDescending(p => p.Date).ToList();
+
+            return View(pvm);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult WriteInformalPost(InformalPostViewModel postmodel)
+        {
+            var ctx = new ApplicationDbContext();
+            var userId = User.Identity.GetUserId();
+            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var userManager = new UserManager<ApplicationUser>(store);
+            ApplicationUser user = userManager.FindById(userId);
+            var informalpost = new InformalPostModel
+            {
+                Title = postmodel.Title,
+                Content = postmodel.Content,
+                Author = User.Identity.GetUserName(),
+                Date = DateTime.Now
+            };
+
+            if (ModelState.IsValid)
+            {
+                if (postmodel.File != null && postmodel.File.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(postmodel.File.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedFiles/"), fileName);
+                    informalpost.FilePath = "~/UploadedFiles/" + fileName;
+                    postmodel.File.SaveAs(path);
+                }
+                ctx.InformalPost.Add(informalpost);
+                ctx.SaveChanges();
+            }
+            else
+            {
+                postmodel.InformalPosts = ctx.InformalPost.OrderByDescending(p => p.Date).ToList();
+                return View("ShowInformalPost", postmodel);
+            }
+
+            return RedirectToAction("ShowInformalPost");
+        }
     }
 }
 
