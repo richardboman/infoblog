@@ -213,6 +213,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ScienceController.cs" />
+    <Compile Include="Controllers\SendEmailController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -309,6 +310,8 @@
     <Content Include="Views\Science\SciencePostView.cshtml" />
     <Content Include="Views\Education\EditPost.cshtml" />
     <Content Include="Views\Science\EditPost.cshtml" />
+    <Content Include="Views\SendEmail\SendEmail.cshtml" />
+    <Content Include="Views\Post\EditPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
