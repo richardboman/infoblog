@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -218,10 +221,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CreateMeetingViewModel.cs" />
+    <Compile Include="Models\Meetings\CreateMeetingViewModel.cs" />
     <Compile Include="Models\EducationPostModel.cs" />
-    <Compile Include="Models\Meeting.cs" />
-    <Compile Include="Models\MeetingPoll.cs" />
+    <Compile Include="Models\Meetings\Meeting.cs" />
+    <Compile Include="Models\Meetings\MeetingPoll.cs" />
+    <Compile Include="Models\Meetings\MeetingTime.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\FormalPostModel.cs" />
     <Compile Include="Models\FormalPostViewModel.cs" />
@@ -317,6 +321,8 @@
     <Content Include="Views\Meeting\Create.cshtml" />
     <Content Include="Views\Post\ShowInformalPost.cshtml" />
     <Content Include="Views\Post\WriteInformalPost.cshtml" />
+    <Content Include="Views\Meeting\_AddTimePartial.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
