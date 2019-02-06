@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Infoblog.Models.Meetings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,6 @@ namespace Infoblog.Models
         public string Content { get; set; }
         public List<ApplicationUser> AllUsers { get; set; }
         public ICollection<ApplicationUser> Participants { get; set; }
-        public string MeetingTime { get; set; }
-        public List<string> MeetingTimes { get; set; }
+        public List<MeetingTime> MeetingTimes { get; set; }
     }
 }
