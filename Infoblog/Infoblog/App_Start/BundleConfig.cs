@@ -24,8 +24,10 @@ namespace Infoblog
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap-journal.css",
+                      "~/Content/bootstrap-journal.css", "~/Content/VoteStyle.css",
                       "~/Content/site.css"));
+
+         
         }
     }
 }
