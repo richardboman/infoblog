@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -208,18 +211,24 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ScienceController.cs" />
     <Compile Include="Controllers\SendEmailController.cs" />
-    <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\Meetings\CreateMeetingViewModel.cs" />
     <Compile Include="Models\EducationPostModel.cs" />
+    <Compile Include="Models\Meetings\Meeting.cs" />
+    <Compile Include="Models\Meetings\MeetingPoll.cs" />
+    <Compile Include="Models\Meetings\MeetingTime.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\FormalPostModel.cs" />
     <Compile Include="Models\FormalPostViewModel.cs" />
@@ -244,9 +253,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\img\Nova.jpg" />
-    <Content Include="Content\img\Nova2.jpg" />
-    <Content Include="Content\VoteStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -314,11 +320,15 @@
     <Content Include="Views\Science\SciencePostView.cshtml" />
     <Content Include="Views\Education\EditPost.cshtml" />
     <Content Include="Views\Science\EditPost.cshtml" />
+    <Content Include="Views\Meeting\Index.cshtml" />
+    <Content Include="Views\Meeting\Create.cshtml" />
     <Content Include="Views\Post\ShowInformalPost.cshtml" />
     <Content Include="Views\Post\WriteInformalPost.cshtml" />
-    <Content Include="Views\Post\EditPost.cshtml" />
+    <Content Include="Views\Meeting\_AddTimePartial.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <Content Include="Views\Category\_CategoryPartialView.cshtml" />
     <Content Include="Views\SendEmail\SendEmail.cshtml" />
-    <Content Include="Views\Vote\ViewVote.cshtml" />
+    <Content Include="Views\Post\EditPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
