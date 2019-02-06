@@ -329,6 +329,7 @@
     <Content Include="Views\Category\_CategoryPartialView.cshtml" />
     <Content Include="Views\SendEmail\SendEmail.cshtml" />
     <Content Include="Views\Post\EditPost.cshtml" />
+    <Content Include="Views\Post\EditInformalPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
