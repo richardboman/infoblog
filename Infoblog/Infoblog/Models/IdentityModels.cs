@@ -28,7 +28,7 @@ namespace Infoblog.Models
         public DbSet<FormalPostModel> Post { get; set; }
         public DbSet<EducationPostModel> EducationPosts { get; set; }
         public DbSet<ScienceModel> SciencePost { get; set; }
-        
+        public DbSet<CategoryModel> Categories { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

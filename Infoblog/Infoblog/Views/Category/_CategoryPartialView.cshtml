@@ -1,0 +1,16 @@
+﻿@model List<Infoblog.Models.CategoryModel>
+
+@{
+    ViewBag.Title = "_CategoryPartialView";
+
+}
+@Html.Label("Välj en kategori: ")
+@Html.DropDownList(
+    "Category",
+     new SelectList(
+        Model.Select(x => new { Value = x.Id, Text = x.Name }),
+        "Value",
+        "Text"
+    )
+)
+
