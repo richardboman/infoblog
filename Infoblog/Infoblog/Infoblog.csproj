@@ -226,6 +226,7 @@
     <Compile Include="Models\Meetings\Meeting.cs" />
     <Compile Include="Models\Meetings\MeetingPoll.cs" />
     <Compile Include="Models\Meetings\MeetingTime.cs" />
+    <Compile Include="Models\Meetings\PollOption.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\FormalPostModel.cs" />
     <Compile Include="Models\FormalPostViewModel.cs" />
