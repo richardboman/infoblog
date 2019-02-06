@@ -27,6 +27,41 @@ namespace Infoblog.Controllers
 
             return View(pvm);
         }
+
+
+        public ActionResult EditPost(PostViewModel post)
+        {
+            return View(post);
+        }
+
+        [HttpPost]
+        [ActionName("EditPost")]
+        public virtual ActionResult SaveEdit(PostViewModel post)
+        {
+            var ctx = new ApplicationDbContext();
+            var postToEdit = ctx.Post.SingleOrDefault(p => p.Id == post.Id);
+            postToEdit.Content = post.Content;
+            postToEdit.Title = post.Title;
+            postToEdit.File = post.File;
+            ctx.SaveChanges();
+            return RedirectToAction("ShowPost", "Post");
+        }
+
+        public ActionResult RemovePost(PostViewModel postmodel)
+        {
+            var ctx = new ApplicationDbContext();
+            var post = ctx.Post.SingleOrDefault(p => p.Id == postmodel.Id);
+            if (post != null)
+            {
+                var postToRemove = ctx.Post.Find(postmodel.Id);
+                ctx.Post.Remove(postToRemove);
+                ctx.SaveChanges();
+            }
+
+            return RedirectToAction("ShowPost", "Post");
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult WritePost(FormalPostViewModel postmodel)
