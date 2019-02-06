@@ -98,16 +98,20 @@ namespace Infoblog.Controllers
         public ActionResult WritePost(FormalPostViewModel postmodel)
         { 
             var ctx = new ApplicationDbContext();
+            var cat = new CategoryModel();
+            var value = Request["Category"];
             var userId = User.Identity.GetUserId();
             var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
             var userManager = new UserManager<ApplicationUser>(store);
             ApplicationUser user = userManager.FindById(userId);
             var post = new FormalPostModel
+
             {
                 Title = postmodel.Title,
                 Content = postmodel.Content,
                 Author = User.Identity.GetUserName(),
-                Date = DateTime.Now
+                Date = DateTime.Now,
+                CategoryId = int.Parse(value)
             };
 
             if (ModelState.IsValid)
