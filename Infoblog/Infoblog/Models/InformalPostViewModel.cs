@@ -23,8 +23,6 @@ namespace Infoblog.Models
         [Display(Name = "Avsändare")]
         public string Author { get; set; }
 
-        [Display(Name = "Datum")]
-        public DateTime Date { get; set; }
 
         public string FilePath { get; set; }
 
