@@ -47,6 +47,24 @@ namespace Infoblog.Controllers
             return RedirectToAction("ShowPost", "Post");
         }
 
+        public ActionResult EditInformalPost(PostViewModel post)
+        {
+            return View(post);
+        }
+
+        [HttpPost]
+        [ActionName("EditInformalPost")]
+        public virtual ActionResult SaveInformalEdit(PostViewModel post)
+        {
+            var ctx = new ApplicationDbContext();
+            var postToEdit = ctx.InformalPost.SingleOrDefault(p => p.Id == post.Id);
+            postToEdit.Content = post.Content;
+            postToEdit.Title = post.Title;
+            postToEdit.File = post.File;
+            ctx.SaveChanges();
+            return RedirectToAction("ShowInformalPost", "Post");
+        }
+
         public ActionResult RemovePost(PostViewModel postmodel)
         {
             var ctx = new ApplicationDbContext();
@@ -61,6 +79,19 @@ namespace Infoblog.Controllers
             return RedirectToAction("ShowPost", "Post");
         }
 
+        public ActionResult RemoveInformalPost(PostViewModel postmodel)
+        {
+            var ctx = new ApplicationDbContext();
+            var post = ctx.InformalPost.SingleOrDefault(p => p.Id == postmodel.Id);
+            if (post != null)
+            {
+                var postToRemove = ctx.InformalPost.Find(postmodel.Id);
+                ctx.InformalPost.Remove(postToRemove);
+                ctx.SaveChanges();
+            }
+
+            return RedirectToAction("ShowInformalPost", "Post");
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
