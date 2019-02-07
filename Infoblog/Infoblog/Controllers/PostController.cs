@@ -23,12 +23,12 @@ namespace Infoblog.Controllers
         {
             var ctx = new ApplicationDbContext();
             var pvm = new FormalPostViewModel();
+            var cat = new CategoryModel();
             pvm.Posts = ctx.Post.OrderByDescending(p => p.Date).ToList();
-
-            return View(pvm);
+                return View(pvm);
         }
 
-
+     
         public ActionResult EditPost(PostViewModel post)
         {
             return View(post);
