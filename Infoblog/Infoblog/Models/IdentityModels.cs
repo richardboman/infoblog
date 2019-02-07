@@ -20,6 +20,7 @@ namespace Infoblog.Models
         [Display (Name = "Efternamn")]
         public string LastName { get; set; }
         public virtual ICollection<Meeting> Meetings{ get; set; }
+        public virtual ICollection<MeetingPoll> MeetingPolls { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -42,8 +43,6 @@ namespace Infoblog.Models
 
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<MeetingPoll> MeetingPolls { get; set; }
-        
-
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

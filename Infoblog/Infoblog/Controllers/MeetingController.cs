@@ -56,6 +56,7 @@ namespace Infoblog.Controllers
         {
             public string Title { get; set; }
             public string Content { get; set; }
+            public object[] Participants { get; set; }
             public string[] MeetingTimes { get; set; }
         }
     }
