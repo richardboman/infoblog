@@ -10,6 +10,8 @@ namespace Infoblog.Controllers
 {
     public class SendEmailController : Controller
     {
+        private string receiver;
+
         // GET: SendEmail
         public ActionResult SendEmail()
         {
@@ -54,6 +56,47 @@ namespace Infoblog.Controllers
                 ViewBag.Error = "Some Error";
             }
             return View();
+        }
+        [HttpPost]
+        public ActionResult EmailWhenPost()
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var senderEmail = new MailAddress("oru.infoblog@gmail.com", "Infoblog");
+                    var receiverEmail = new MailAddress("henrik.ojeda@hotmail.com", "Receiver");
+                    var password = "Aa12345!";
+                    var subject = "Nytt blogginlägg";
+                    var body = "Ett nytt inlägg om porr har lagts till";
+                    var smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(senderEmail.Address, password)
+                    };
+                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+                    {
+                        Subject = subject,
+                        Body = body
+                    })
+                    {
+
+                        smtp.Send(mess);
+                    }
+                    return View();
+                }
+            }
+
+            catch (Exception)
+            {
+                ViewBag.Error = "Some Error";
+            }
+            return View();
+
         }
     }
 }

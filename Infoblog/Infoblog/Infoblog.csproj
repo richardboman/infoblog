@@ -230,6 +230,7 @@
     <Compile Include="Models\Meetings\Meeting.cs" />
     <Compile Include="Models\Meetings\MeetingPoll.cs" />
     <Compile Include="Models\Meetings\MeetingTime.cs" />
+    <Compile Include="Models\Meetings\PollOption.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\FormalPostModel.cs" />
     <Compile Include="Models\FormalPostViewModel.cs" />
@@ -345,7 +346,9 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Notification\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

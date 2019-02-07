@@ -149,6 +149,7 @@ namespace Infoblog.Controllers
         {
             var ctx = new ApplicationDbContext();
             var userId = User.Identity.GetUserId();
+            var value = Request["Category"];
             var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
             var userManager = new UserManager<ApplicationUser>(store);
             ApplicationUser user = userManager.FindById(userId);
@@ -157,7 +158,8 @@ namespace Infoblog.Controllers
                 Title = postmodel.Title,
                 Content = postmodel.Content,
                 Author = User.Identity.GetUserName(),
-                Date = DateTime.Now
+                Date = DateTime.Now,
+                CategoryId = int.Parse(value)
             };
 
             if (ModelState.IsValid)
