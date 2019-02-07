@@ -113,6 +113,7 @@ namespace Infoblog.Controllers
                 Date = DateTime.Now,
                 CategoryId = int.Parse(value)
             };
+            var notification = new SendEmailController();
 
             if (ModelState.IsValid)
             {
@@ -125,6 +126,7 @@ namespace Infoblog.Controllers
                 }
                 ctx.Post.Add(post);
                 ctx.SaveChanges();
+                notification.EmailWhenPost();
             }
             else
             {
