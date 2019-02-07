@@ -1,8 +1,4 @@
-﻿@model Infoblog.Models.Meetings.MeetingTime
-@using HtmlHelpers.BeginCollectionItem
-
-
-@helper createDropBoxes()
+﻿@helper createDropBoxes()
 {
     <div class="form-group">
         <div class="col-md-10">
@@ -78,6 +74,9 @@
                 
                 ev.preventDefault();
                 var hour = $('#lstHours').val();
+
+                // Denna knappen lägger till i listan?
+                
 
                 $('#Start').val(hour);
             });
