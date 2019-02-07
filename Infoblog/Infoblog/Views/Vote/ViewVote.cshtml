@@ -9,32 +9,48 @@
     <br />
     <div id="container">
 
-        <div><span>0</span><button id="B1" onclick="this.disabled = true;">Rösta</button>0800-0900</div>
+        <div><span>0</span><button id="B1">Rösta</button>08:00-09:00</div>
 
-        <div><span>0</span><button id="B1" onclick="this.disabled = true;">Rösta</button>0900-1000</div>
+        <div><span>0</span><button id="B2">Rösta</button>09:00-10:00</div>
 
-        <div><span>0</span><button id="B1" onclick="this.disabled = true;">Rösta</button>1000-1100</div>
+        <div><span>0</span><button id="B3">Rösta</button>10:00-11:00</div>
 
-        <div><span>0</span><button id="B1" onclick="this.disabled = true;">Rösta</button>1100-1200</div>
+        <div><span>0</span><button id="B4">Rösta</button>11:00-12:00</div>
 
-        <div><span>0</span><button id="B1" onclick="this.disabled = true;">Rösta</button>1200-1300</div>
+        <div><span>0</span><button id="B5">Rösta</button>12:00-13:00</div>
 
-        <div><span>0</span><button id="B1" onclick="this.disabled = true;">Rösta</button>model.blablabal</div>
+        <div><span>0</span><button id="B6">Rösta</button>model.blablabal</div>
     </div>
 </body>
 
 
 @section scripts {
     <script>
-        $(document).ready(function () {
-            $("#container div button").click(function () {
-                $(this).parent().animate({
-                    width: '+=100px'
-                }, 500);
+        var voted = new Boolean(false);
+        
+        
+            $(document).ready(function () {
+                $("#container div button").click(function () {
+                    if (voted == false) {
+                        $(this).parent().animate({
+                            width: '+=100px'
+                        }, 500);
 
-                $(this).prev().html(parseInt($(this).prev().html()) + 1)
-                return false;
+                        $(this).prev().html(parseInt($(this).prev().html()) + 1)
+                        voted = true;
+                        
+                    } else if (voted == true){
+                        $(this).parent().animate({
+                            width: '-=100px'
+                        }, 500);
+                        $(this).prev().html(parseInt($(this).prev().html()) - 1)
+                        voted = false;
+                        
+                    }
+                    
+                });
             });
-        });
+        
+        
     </script>
 }
