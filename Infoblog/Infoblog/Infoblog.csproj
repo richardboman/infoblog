@@ -321,8 +321,8 @@
     <Content Include="Views\Meeting\Create.cshtml" />
     <Content Include="Views\Post\ShowInformalPost.cshtml" />
     <Content Include="Views\Post\WriteInformalPost.cshtml" />
-    <Content Include="Views\Meeting\_AddTimePartial.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <Content Include="Views\SendEmail\SendEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
