@@ -42,6 +42,7 @@ namespace Infoblog.Models
 
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<MeetingPoll> MeetingPolls { get; set; }
+        public DbSet<CategoryModel> Category { get; set; }
 
 
         public ApplicationDbContext()
