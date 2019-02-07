@@ -216,10 +216,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
-    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ScienceController.cs" />
     <Compile Include="Controllers\SendEmailController.cs" />
+    <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -230,6 +230,7 @@
     <Compile Include="Models\Meetings\Meeting.cs" />
     <Compile Include="Models\Meetings\MeetingPoll.cs" />
     <Compile Include="Models\Meetings\MeetingTime.cs" />
+    <Compile Include="Models\Meetings\MeetingViewModel.cs" />
     <Compile Include="Models\Meetings\PollOption.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\FormalPostModel.cs" />
