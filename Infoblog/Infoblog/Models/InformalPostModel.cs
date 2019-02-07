@@ -31,5 +31,9 @@ namespace Infoblog.Models
         [ValidateFile(ErrorMessage = "Fel filformat. Välj, png, jpg eller gif")]
 
         public HttpPostedFileBase File { get; set; }
+
+        [ForeignKey("CategoryModel")]
+        public int CategoryId { get; set; }
+        public virtual CategoryModel CategoryModel { get; set; }
     }
 }

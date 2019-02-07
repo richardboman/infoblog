@@ -37,9 +37,12 @@ namespace Infoblog.Models
         public DbSet<EducationPostModel> EducationPosts { get; set; }
         public DbSet<ScienceModel> SciencePost { get; set; }
         public DbSet<InformalPostModel> InformalPost { get; set; }
-        
+
+        public DbSet<CategoryModel> Category { get; set; }
+
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<MeetingPoll> MeetingPolls { get; set; }
+        public DbSet<CategoryModel> Category { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

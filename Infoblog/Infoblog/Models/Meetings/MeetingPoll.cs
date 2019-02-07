@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Infoblog.Models.Meetings;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,9 +12,8 @@ namespace Infoblog.Models
     {
         [Key]
         public int Id { get; set; }
-        public Dictionary<string, int> PollOptions { get; set; }
-        [ForeignKey("Meeting")]
-        public int MeetingId { get; set; }
-        public virtual Meeting Meeting { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public ICollection<PollOption> PollOptions { get; set; }
     }
 }

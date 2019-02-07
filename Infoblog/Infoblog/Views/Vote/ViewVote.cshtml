@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "ViewVote";
+}
+<body id="cool">
+    <h2 id="titel">Röstning om möte</h2>
+    <hr />
+    <div id="cool2"> <span id="question">Vilken tid passar er bäst?</span></div>
+    <br />
+    <div id="container">
+
+        <div><span>0</span><button id="B1" onclick="this.disabled = true;">Rösta</button>0800-0900</div>
+
+        <div><span>0</span><button id="B1" onclick="this.disabled = true;">Rösta</button>0900-1000</div>
+
+        <div><span>0</span><button id="B1" onclick="this.disabled = true;">Rösta</button>1000-1100</div>
+
+        <div><span>0</span><button id="B1" onclick="this.disabled = true;">Rösta</button>1100-1200</div>
+
+        <div><span>0</span><button id="B1" onclick="this.disabled = true;">Rösta</button>1200-1300</div>
+
+        <div><span>0</span><button id="B1" onclick="this.disabled = true;">Rösta</button>model.blablabal</div>
+    </div>
+</body>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#container div button").click(function () {
+                $(this).parent().animate({
+                    width: '+=100px'
+                }, 500);
+
+                $(this).prev().html(parseInt($(this).prev().html()) + 1)
+                return false;
+            });
+        });
+    </script>
+}

@@ -1,0 +1,82 @@
+﻿
+
+#container {
+    color: #000;
+    background: #fff;
+    
+    width: 0px;
+    height: 500px;
+}
+
+#titel{
+    background-color:rgba(171, 164, 164, 0.61);
+    width:260px
+}
+
+#cool2 {
+    font-family: "Arial Narrow Bold", sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    color:#000;
+    background-color: rgba(195, 187, 187, 0.67);
+    width:310px;
+}
+
+    #container #question {
+        display: block;
+        padding: 20px;
+        font-weight: bold;
+        font-family:"Arial Narrow Bold", sans-serif;
+        letter-spacing: normal;
+        margin-bottom: 20px;
+        padding: 10px;
+        font-size: 25px;
+        opacity: unset;
+        
+    }
+
+    #container div {
+        font-weight: bold;
+        letter-spacing: normal;
+        background: #eb6864;
+        margin-bottom: 15px;
+        padding: 10px;
+        font-family: "Arial Narrow Bold", sans-serif;
+        font-size: 20px;
+        color: #fff;
+        border-left: 20px solid #eb6864;
+        width: 450px;
+        -webkit-border-radius: 0.5em;
+        -moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
+        border-radius: 1.5em 1.5em 1.5em 1.5em;
+        opacity: unset;
+    }
+
+        #container div a {
+            border-radius: 0;
+            text-decoration: none;
+            color: #fff;
+            font-family: "Arial Narrow Bold", sans-serif;
+            padding: 0px 0px;
+            background: #000;
+            margin: 0 0px;
+            opacity: unset;
+        }
+
+            #container div a:hover {
+                color: #fff;
+            }
+
+        #B1{
+         background-color: #000;
+         border-radius: 12px;
+         font-family: "Arial Narrow", sans-serif;
+         padding: 0px 0px;
+         margin: 0 20px;
+         width: 75px;
+        }
+
+#cool {
+    background-image: url(img/Nova2.jpg);
+    background-size: cover;
+}

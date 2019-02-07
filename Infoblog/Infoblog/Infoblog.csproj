@@ -216,6 +216,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ScienceController.cs" />
     <Compile Include="Controllers\SendEmailController.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="Models\Meetings\Meeting.cs" />
     <Compile Include="Models\Meetings\MeetingPoll.cs" />
     <Compile Include="Models\Meetings\MeetingTime.cs" />
+    <Compile Include="Models\Meetings\PollOption.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\FormalPostModel.cs" />
     <Compile Include="Models\FormalPostViewModel.cs" />
@@ -324,11 +326,11 @@
     <Content Include="Views\Meeting\Create.cshtml" />
     <Content Include="Views\Post\ShowInformalPost.cshtml" />
     <Content Include="Views\Post\WriteInformalPost.cshtml" />
-    <Content Include="Views\Meeting\_AddTimePartial.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="Views\Category\_CategoryPartialView.cshtml" />
     <Content Include="Views\SendEmail\SendEmail.cshtml" />
     <Content Include="Views\Post\EditPost.cshtml" />
+    <Content Include="Views\Post\EditInformalPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -343,7 +345,9 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Notification\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
