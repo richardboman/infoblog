@@ -44,7 +44,6 @@ namespace Infoblog.Models
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<MeetingPoll> MeetingPolls { get; set; }
 
-
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
