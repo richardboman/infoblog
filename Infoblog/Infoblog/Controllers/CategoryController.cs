@@ -12,7 +12,7 @@ namespace Infoblog.Controllers
         public ActionResult _CategoryPartialView()
         {
             var ctx = new ApplicationDbContext();
-            var model = ctx.Categories.ToList();
+            var model = ctx.Category.ToList();
             return PartialView("_CategoryPartialView", model);
         }
     }
