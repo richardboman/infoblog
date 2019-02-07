@@ -23,6 +23,7 @@ namespace Infoblog.Models
         [Display(Name = "Avsändare")]
         public string Author { get; set; }
 
+        public int CategoryId { get; set; }
 
         public string FilePath { get; set; }
 

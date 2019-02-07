@@ -28,10 +28,35 @@ namespace Infoblog.Controllers
             return View(model);
         }
 
-        public ActionResult AddNewTime()
+        [System.Web.Http.HttpPost]
+        public ActionResult CreateMeeting([FromBody]MeetingData meetingData)
         {
-            var model = new MeetingTime();
-            return PartialView("_AddTimePartial", model);
+            var mp = new MeetingPoll();
+            mp.Title = meetingData.Title;
+            mp.Content = meetingData.Content;
+
+            var pollOptions = new List<PollOption>();
+
+            foreach(var time in meetingData.MeetingTimes)
+            {
+                var option = new PollOption() { MeetingTime = time, Votes = 0, MeetingPoll = mp };
+                pollOptions.Add(option);
+            }
+
+            mp.PollOptions = pollOptions;
+
+            var ctx = new ApplicationDbContext();
+            ctx.MeetingPolls.Add(mp);
+            ctx.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public class MeetingData
+        {
+            public string Title { get; set; }
+            public string Content { get; set; }
+            public string[] MeetingTimes { get; set; }
         }
     }
 }

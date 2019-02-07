@@ -47,6 +47,24 @@ namespace Infoblog.Controllers
             return RedirectToAction("ShowPost", "Post");
         }
 
+        public ActionResult EditInformalPost(PostViewModel post)
+        {
+            return View(post);
+        }
+
+        [HttpPost]
+        [ActionName("EditInformalPost")]
+        public virtual ActionResult SaveInformalEdit(PostViewModel post)
+        {
+            var ctx = new ApplicationDbContext();
+            var postToEdit = ctx.InformalPost.SingleOrDefault(p => p.Id == post.Id);
+            postToEdit.Content = post.Content;
+            postToEdit.Title = post.Title;
+            postToEdit.File = post.File;
+            ctx.SaveChanges();
+            return RedirectToAction("ShowInformalPost", "Post");
+        }
+
         public ActionResult RemovePost(PostViewModel postmodel)
         {
             var ctx = new ApplicationDbContext();
@@ -61,22 +79,39 @@ namespace Infoblog.Controllers
             return RedirectToAction("ShowPost", "Post");
         }
 
+        public ActionResult RemoveInformalPost(PostViewModel postmodel)
+        {
+            var ctx = new ApplicationDbContext();
+            var post = ctx.InformalPost.SingleOrDefault(p => p.Id == postmodel.Id);
+            if (post != null)
+            {
+                var postToRemove = ctx.InformalPost.Find(postmodel.Id);
+                ctx.InformalPost.Remove(postToRemove);
+                ctx.SaveChanges();
+            }
+
+            return RedirectToAction("ShowInformalPost", "Post");
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult WritePost(FormalPostViewModel postmodel)
         { 
             var ctx = new ApplicationDbContext();
+            var cat = new CategoryModel();
+            var value = Request["Category"];
             var userId = User.Identity.GetUserId();
             var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
             var userManager = new UserManager<ApplicationUser>(store);
             ApplicationUser user = userManager.FindById(userId);
             var post = new FormalPostModel
+
             {
                 Title = postmodel.Title,
                 Content = postmodel.Content,
                 Author = User.Identity.GetUserName(),
-                Date = DateTime.Now
+                Date = DateTime.Now,
+                CategoryId = int.Parse(value)
             };
 
             if (ModelState.IsValid)
