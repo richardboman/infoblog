@@ -65,7 +65,7 @@ namespace Infoblog.Controllers
                 if (ModelState.IsValid)
                 {
                     var senderEmail = new MailAddress("oru.infoblog@gmail.com", "Infoblog");
-                    var receiverEmail = new MailAddress("henrik.ojeda@hotmail.com", "Receiver");
+                    var receiverEmail = new MailAddress("henrik.ojeda@hotmail.com");
                     var password = "Aa12345!";
                     var subject = "Nytt blogginlägg";
                     var body = "Ett nytt inlägg om porr har lagts till";
@@ -96,7 +96,6 @@ namespace Infoblog.Controllers
                 ViewBag.Error = "Some Error";
             }
             return View();
-
         }
     }
 }

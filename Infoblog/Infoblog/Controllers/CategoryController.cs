@@ -15,5 +15,12 @@ namespace Infoblog.Controllers
             var model = ctx.Category.ToList();
             return PartialView("_CategoryPartialView", model);
         }
+
+        public ActionResult _CategoryFilterPartialView()
+        {
+            var ctx = new ApplicationDbContext();
+            var model = ctx.Category.ToList();
+            return PartialView("_CategoryFilterPartialView", model);
+        }
     }
 }
