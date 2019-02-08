@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace Infoblog.Models
         [Display (Name = "Efternamn")]
         public string LastName { get; set; }
         public virtual ICollection<Meeting> Meetings{ get; set; }
+        [InverseProperty("Participants")]
         public virtual ICollection<MeetingPoll> MeetingPolls { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
