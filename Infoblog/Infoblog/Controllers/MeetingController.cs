@@ -19,12 +19,12 @@ namespace Infoblog.Controllers
         {
             var userId = User.Identity.GetUserId();
             var ctx = new ApplicationDbContext();
-            var user = ctx.Users.First(u => u.Id.Equals(userId));
-            var mvm = new MeetingViewModel();
+            var user = ctx.Users.FirstOrDefault(u => u.Id.Equals(userId));
+            var mvm = new AllMeetingsViewModel();
             mvm.InvitedMeetingPolls = new List<MeetingPoll>();
 
 
-            var pl = ctx.MeetingPolls.Select(m => new { Participants = m.Participants, MeetingPoll = m}).ToList();
+            var pl = ctx.MeetingPolls.Select(m => new { m.Participants, MeetingPoll = m}).ToList();
 
             foreach(var p in pl)
             {
