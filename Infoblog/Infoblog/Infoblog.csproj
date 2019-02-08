@@ -242,6 +242,7 @@
     <Compile Include="Models\ScienceModel.cs" />
     <Compile Include="Models\ScienceViewModel.cs" />
     <Compile Include="Models\ValidateFile.cs" />
+    <Compile Include="Models\VoteModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

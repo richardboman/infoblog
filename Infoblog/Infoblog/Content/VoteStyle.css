@@ -75,6 +75,15 @@
          margin: 0 20px;
          width: 75px;
         }
+#B5 {
+    background-color: #000;
+    border-radius: 12px;
+    font-family: "Arial Narrow", sans-serif;
+    padding: 0px 0px;
+    margin: 0 20px;
+    width: 75px;
+}
+     
 
 #cool {
     background-image: url(img/Nova2.jpg);
