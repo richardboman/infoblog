@@ -1,33 +1,44 @@
-﻿@{
-    ViewBag.Title = "ViewVote";
+﻿@using Infoblog.Models.Meetings
+@model.MeetingViewModel
+
+
+@foreach(var poll in Model.InvitedMeetingPolls)
+{
+
+    <body id="cool">
+        <h2 id="titel">Model.Author</h2>
+        <hr />
+        <div id="cool2"> <span id="question">Vilken tid passar er bäst?</span></div>
+        <br />
+        <div id="container">
+
+            <div><span>0</span><button id="B1" data-voted="false">Rösta</button>08:00-09:00</div>
+
+            <div><span>0</span><button id="B1" data-voted="false">Rösta</button>09:00-10:00</div>
+
+            <div><span>0</span><button id="B1" data-voted="false">Rösta</button>10:00-11:00</div>
+
+            <div><span>0</span><button id="B1" data-voted="false">Rösta</button>11:00-12:00</div>
+
+            <div><span>0</span><button id="B1" data-voted="false">Rösta</button>12:00-13:00</div>
+
+            <div><span>0</span><button id="B1" data-voted="false">Rösta</button>model.blablabal</div>
+        </div>
+    </body>
+
 }
-<body id="cool">
-    <h2 id="titel">Röstning om möte</h2>
-    <hr />
-    <div id="cool2"> <span id="question">Vilken tid passar er bäst?</span></div>
-    <br />
-    <div id="container">
 
-        <div><span>0</span><button id="B1" data-voted="false">Rösta</button>08:00-09:00</div>
 
-        <div><span>0</span><button id="B1" data-voted="false">Rösta</button>09:00-10:00</div>
-
-        <div><span>0</span><button id="B1" data-voted="false">Rösta</button>10:00-11:00</div>
-
-        <div><span>0</span><button id="B1" data-voted="false">Rösta</button>11:00-12:00</div>
-
-        <div><span>0</span><button id="B1" data-voted="false">Rösta</button>12:00-13:00</div>
-
-        <div><span>0</span><button id="B1" data-voted="false">Rösta</button>model.blablabal</div>
-    </div>
-</body>
 
 @section scripts {
     <script>
+
         $(document).ready(function () {
             $("#container div button").click(function () {
                 let voted = $(this).data("voted");
                 let voteIndicator = $(this).prev();
+                let UserID = $('B1').value();
+                let Vote = $('vote').value();
                 if (voted) {
                     $(this).parent().animate({
                         width: '-=100px'
@@ -41,7 +52,8 @@
                 }, 500);
                 voteIndicator.html(parseInt(voteIndicator.html()) + 1)
                 $(this).data("voted", true);
+
             });
         });
     </script>
-    }
+}
