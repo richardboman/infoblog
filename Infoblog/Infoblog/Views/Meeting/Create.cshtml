@@ -205,11 +205,13 @@
         $('#createMeetingPoll').on('click', function (ev) {
             ev.preventDefault();
 
+            var userEmails = participants.map(u => u.Email);
+
             var data = {
                 Title: $('#Title').val(),
                 Content: $('#Content').val(),
                 MeetingTimes: meetingTimes,
-                Participants: participants
+                Participants: userEmails
 
             };
 

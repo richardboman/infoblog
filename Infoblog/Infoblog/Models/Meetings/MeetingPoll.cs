@@ -14,11 +14,9 @@ namespace Infoblog.Models
         public int Id { get; set; }
 
         public virtual ApplicationUser Author { get; set; }
-        public virtual ICollection<ApplicationUser> Participants {get; set;}
-
         public string Title { get; set; }
         public string Content { get; set; }
-
-        public ICollection<PollOption> PollOptions { get; set; }
+        public virtual ICollection<PollOption> PollOptions { get; set; }
+        public virtual ICollection<ApplicationUser> Participants { get; set; }
     }
 }

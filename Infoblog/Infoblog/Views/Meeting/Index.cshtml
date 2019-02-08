@@ -1,9 +1,19 @@
-﻿
+﻿@model Infoblog.Models.Meetings.MeetingViewModel
 @{
     ViewBag.Title = "Möten";
 }
 
-<h2>Möten</h2>
+<h2>Mina skapade möten</h2>
+@foreach(var m in Model.CreatedMeetingPolls)
+{
+    <a>@m.Title</a>
+}
+
+<h2>Mina mötesinbjudningar</h2>
+@foreach(var m in Model.InvitedMeetingPolls)
+{
+    <a>@m.Title</a>
+}
 
 
 
