@@ -337,6 +337,7 @@
     <Content Include="Views\Post\EditPost.cshtml" />
     <Content Include="Views\Post\EditInformalPost.cshtml" />
     <Content Include="Views\Vote\ViewVote.cshtml" />
+    <Content Include="Views\Category\_CategoryFilterPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
