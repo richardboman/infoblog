@@ -20,7 +20,7 @@ namespace Infoblog.Controllers
             var userId = User.Identity.GetUserId();
             var ctx = new ApplicationDbContext();
             var user = ctx.Users.First(u => u.Id.Equals(userId));
-            var mvm = new MeetingViewModel();
+            var mvm = new MeetingsViewModels();
             mvm.InvitedMeetingPolls = new List<MeetingPoll>();
 
 

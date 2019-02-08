@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Infoblog.Models.Meetings
 {
-    public class MeetingViewModel
+    public class MeetingsViewModels
     {
         public List<MeetingPoll> CreatedMeetingPolls { get; set; }
         public List<MeetingPoll> InvitedMeetingPolls{ get; set; }
