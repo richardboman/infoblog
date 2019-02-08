@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Infoblog.Controllers
 {
+    [Authorize]
     public class VoteController : Controller
     {
         // GET: Vote
