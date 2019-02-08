@@ -28,7 +28,20 @@ namespace Infoblog.Controllers
                 return View(pvm);
         }
 
-     
+
+        public ActionResult ShowFilteredPost()
+        {
+            var ctx = new ApplicationDbContext();
+            var pvm = new FormalPostViewModel();
+            var cat = new CategoryModel();
+            var value = int.Parse(Request["CategoryFilter"]);
+
+
+            pvm.Posts = ctx.Post.Where(p=>p.CategoryId==value).OrderByDescending(p => p.Date).ToList();
+            return View("ShowPost", pvm);
+        }
+
+
         public ActionResult EditPost(PostViewModel post)
         {
             return View(post);

@@ -5,15 +5,28 @@
 
 @Html.Partial("WritePost")
 
+@using (Html.BeginForm("ShowFilteredPost", "Post", FormMethod.Post, new { enctype = "Multipart/form-data" }))
+{
+<div>
+<hr /> 
+    @{Html.RenderAction("_CategoryFilterPartialView", "Category");}
+    @Html.HiddenFor(model => model.CategoryId)
+    <input type="submit" value="Filtrera" id="Filter" class="btn btn-default" />
+    @Html.ActionLink("Återställ", "ShowPost", null, new { @class = "btn btn-default" })
+    <hr />
+</div>
+
+   
+}
+
 
 
 @foreach (var p in Model.Posts)
 {
-   var Filter = Request["CategoryFilter"];
-    if(p.CategoryId == int.Parse(Filter)) { 
+
 
     <div class="row">
-        
+
         <h3>@p.Title</h3>
         <p>Kategori: @p.CategoryModel.Name</p>
         <p>@p.Content</p>
@@ -36,10 +49,10 @@
                 new { @class = "btn btn-warning" })
             @Html.ActionLink("Ta bort", "RemovePost", "Post", new { Id = p.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Är du säker på att du vill ta bort detta inlägg?');" })
         }
-   
-        
+
+
     </div>
-    }
+
 
     <hr />
 }
