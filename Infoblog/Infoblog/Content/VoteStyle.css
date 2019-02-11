@@ -5,7 +5,6 @@
     background: #fff;
     
     width: 0px;
-    height: 500px;
 }
 
 #titel{
@@ -20,6 +19,14 @@
     color:#000;
     background-color: rgba(195, 187, 187, 0.67);
     width:310px;
+}
+
+#cool3 {
+    font-family: "Arial Narrow Bold", sans-serif;
+    text-align: left;
+    color: #eb6864;
+    font-size: 20px;
+    font-weight: bold;
 }
 
     #container #question {

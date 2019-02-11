@@ -104,5 +104,54 @@ namespace Infoblog.Controllers
             }
             return View();
         }
+
+        [HttpPost]
+        public ActionResult EmailPollInvitation(MeetingPoll poll)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var damn = poll.Participants;
+                    var ctx = new ApplicationDbContext();
+                    var user = new ApplicationUser();
+                    foreach(var p in poll.Participants)
+                    {
+                        string email = ctx.Users.Where(s => s.Id == p.Id).Select(x => x.Email).SingleOrDefault();
+                        var senderEmail = new MailAddress("oru.infoblog@gmail.com", "Infoblog");
+                        var receiverEmail = new MailAddress(email);
+                        var password = "Aa12345!";
+                        var subject = "Ny inbjudan till omröstning";
+                        var body = "Du har blivit inbjuden till en omröstning. Gå in på dina sidor för att se omröstningen.";
+                        var smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            EnableSsl = true,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential(senderEmail.Address, password)
+                        };
+                        using (var mess = new MailMessage(senderEmail, receiverEmail)
+                        {
+                            Subject = subject,
+                            Body = body
+                        })
+                        {
+
+                            smtp.Send(mess);
+                        }
+                    }
+                    
+                }
+                return View();
+            }
+
+            catch (Exception)
+            {
+                ViewBag.Error = "Some Error";
+            }
+            return View();
+        }
     }
 }
