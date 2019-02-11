@@ -1,58 +1,47 @@
-﻿
-@{
-    ViewBag.Title = "ViewVote";
-}
-<body id="cool">
-    <h2 id="titel">Röstning om möte</h2>
-    <hr />
-    <div id="cool2"> <span id="question">Vilken tid passar er bäst?</span></div>
-    <br />
+﻿@using Infoblog.Models.Meetings
 
-    <div id="container">
 
-        <div><span>0</span><button id="B1">Rösta</button>08:00-09:00</div>
+    <body id="cool">
+        <h2 id="titel">Model.Author</h2>
+        <hr />
+        <div id="cool2"> <span id="question">Vilken tid passar er bäst?</span></div>
+        <br />
+        <div id="container">
 
-        <div><span>0</span><button id="B2">Rösta</button>09:00-10:00</div>
+            <div><span>0</span><button id="B1" data-voted="false">Rösta</button>08:00-09:00</div>
 
-        <div><span>0</span><button id="B3">Rösta</button>10:00-11:00</div>
+            <div><span>0</span><button id="B1" data-voted="false">Rösta</button>09:00-10:00</div>
 
-        <div><span>0</span><button id="B4">Rösta</button>11:00-12:00</div>
+            <div><span>0</span><button id="B1" data-voted="false">Rösta</button>10:00-11:00</div>
 
-        <div><span>0</span><button id="B5">Rösta</button>12:00-13:00</div>
+            <div><span>0</span><button id="B1" data-voted="false">Rösta</button>11:00-12:00</div>
 
-        <div><span>0</span><button id="B6">Rösta</button>model.blablabal</div>
-    </div>
-</body>
+            <div><span>0</span><button id="B1" data-voted="false">Rösta</button>12:00-13:00</div>
 
+            <div><span>0</span><button id="B1" data-voted="false">Rösta</button>model.blablabal</div>
+        </div>
+    </body>
 
 @section scripts {
     <script>
-        var voted = new Boolean(false);
-        
-        
-            $(document).ready(function () {
-                $("#container div button").click(function () {
-                    if (voted == false) {
-                        $(this).parent().animate({
-                            width: '+=100px'
-                        }, 500);
-
-                        $(this).prev().html(parseInt($(this).prev().html()) + 1)
-                        voted = true;
-                        
-                    } else if (voted == true){
-                        $(this).parent().animate({
-                            width: '-=100px'
-                        }, 500);
-                        $(this).prev().html(parseInt($(this).prev().html()) - 1)
-                        voted = false;
-                        
-                        
-                    }
-                    
-                });
+        $(document).ready(function () {
+            $("#container div button").click(function () {
+                let voted = $(this).data("voted");
+                let voteIndicator = $(this).prev();
+                if (voted) {
+                    $(this).parent().animate({
+                        width: '-=100px'
+                    }, 500);
+                    voteIndicator.html(parseInt(voteIndicator.html()) - 1);
+                    $(this).data("voted", false);
+                    return;
+                }
+                $(this).parent().animate({
+                    width: '+=100px'
+                }, 500);
+                voteIndicator.html(parseInt(voteIndicator.html()) + 1)
+                $(this).data("voted", true);
             });
-        
-        
+        });
     </script>
 }

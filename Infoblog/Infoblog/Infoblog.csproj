@@ -229,8 +229,9 @@
     <Compile Include="Models\EducationPostModel.cs" />
     <Compile Include="Models\Meetings\Meeting.cs" />
     <Compile Include="Models\Meetings\MeetingPoll.cs" />
+    <Compile Include="Models\Meetings\MeetingPollResultViewModel.cs" />
     <Compile Include="Models\Meetings\MeetingTime.cs" />
-    <Compile Include="Models\Meetings\MeetingViewModel.cs" />
+    <Compile Include="Models\Meetings\AllMeetingsViewModel.cs" />
     <Compile Include="Models\Meetings\PollOption.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\FormalPostModel.cs" />
@@ -338,6 +339,7 @@
     <Content Include="Views\Post\EditInformalPost.cshtml" />
     <Content Include="Views\Vote\ViewVote.cshtml" />
     <Content Include="Views\Category\_CategoryFilterPartialView.cshtml" />
+    <Content Include="Views\Meeting\PollResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -352,7 +354,9 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Notification\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

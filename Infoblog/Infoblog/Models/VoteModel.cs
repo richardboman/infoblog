@@ -11,9 +11,9 @@ namespace Infoblog.Models
         [Key]
         public string ID { get; set; }
 
-        public int Vote { get; set; }
+        public int Votes { get; set; }
         public string UserID { get; set; }
-        public bool UserHasVoted { get; set; }
+        
 
     }
 }

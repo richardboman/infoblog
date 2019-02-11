@@ -16,7 +16,7 @@ namespace Infoblog.Controllers
             return View();
         }
 
-        public ActionResult AddSciencePost(string userId, int vote)
+        public ActionResult AddMeetingPost(string userId, int votes)
         {
             if (ModelState.IsValid)
             {
@@ -24,7 +24,7 @@ namespace Infoblog.Controllers
                 ctx.VoteTable.Add(new VoteModel
                 {
                     UserID = userId,
-                    Vote = vote,
+                    Votes = votes,
                 });
                 ctx.SaveChanges();
 
