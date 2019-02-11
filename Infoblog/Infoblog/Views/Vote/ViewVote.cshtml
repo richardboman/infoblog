@@ -1,12 +1,37 @@
-﻿@using Infoblog.Models.Meetings
+﻿@using Infoblog.Models
+@model List<Infoblog.Models.MeetingPoll>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body id="cool">
+
+    <hr />
+    <div id="cool2"> <span id="question">Vilken tid passar er bäst?</span></div>
+    <br />
+    <div id="coool">
+        @foreach (var poll in Model)
+        {
+            <h2 id="author"><th>@poll.Author.FirstName&nbsp;@poll.Author.LastName</th></h2>
+            <div id="cool3">
+                <p2>Mötestitel:&nbsp;@poll.Title</p2>
+            <p id="content">@poll.Content</p>
+            </div>
+            if (poll.Participants != null)
+            {
+                <div id="container">
+                @foreach (var p in poll.PollOptions)
+                {
+                    <div><span>@p.Votes</span><button id="B1" data-voted="false">Rösta</button>@p.MeetingTime</div>
+
+                }
+                </div>
+            }
+        }
+    </div>
 
 
-    <body id="cool">
-        <h2 id="titel">Model.Author</h2>
-        <hr />
-        <div id="cool2"> <span id="question">Vilken tid passar er bäst?</span></div>
-        <br />
-        <div id="container">
+        @*<div id="container">
 
             <div><span>0</span><button id="B1" data-voted="false">Rösta</button>08:00-09:00</div>
 
@@ -19,8 +44,8 @@
             <div><span>0</span><button id="B1" data-voted="false">Rösta</button>12:00-13:00</div>
 
             <div><span>0</span><button id="B1" data-voted="false">Rösta</button>model.blablabal</div>
-        </div>
-    </body>
+        </div>*@
+</body>
 
 @section scripts {
     <script>

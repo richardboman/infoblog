@@ -44,11 +44,13 @@ namespace Infoblog.Controllers
             //Hämta till de möten som den inloggade användaren är inbjuden till
             mvm.InvitedMeetings = new List<Meeting>();
             var meetings = ctx.Meetings;
-            foreach (var m in meetings)
+            var participants = meetings.Select(m => new { m, m.Participants }).ToList();
+            foreach (var m in participants)
             {
-                if (m.Author.Equals(user))
+               
+                if (m.Participants.Contains(user))
                 {
-                    mvm.InvitedMeetings.Add(m);
+                    mvm.InvitedMeetings.Add(m.m);
                 }
             }
 
@@ -140,6 +142,7 @@ namespace Infoblog.Controllers
                 Participants = poll.Participants
             };
             ctx.Meetings.Add(meeting);
+            ctx.SaveChanges();
             ctx.MeetingPolls.Remove(poll);
             ctx.SaveChanges();
             return RedirectToAction("Index");
