@@ -139,7 +139,7 @@ namespace Infoblog.Controllers
                 }
                 ctx.Post.Add(post);
                 ctx.SaveChanges();
-                notification.EmailWhenPost();
+                notification.EmailWhenPost(post);
             }
             else
             {

@@ -27,7 +27,7 @@
     {
         @Html.ActionLink("Ändra", "EditInformalPost", "Post", new { Id = p.Id, Content = p.Content, Title = p.Title },
             new { @class = "btn btn-warning" })
-        @Html.ActionLink("Ta bort", "RemoveInformalPost", "Post", new { Id = p.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Är du säker på att du vill ta bort detta inlägg?');" })
+        @Html.ActionLink("Ta bort", "RemoveInformalPost", "Post", new { Id = p.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Är du säker på att du vill ta bort detta inlägg?')" })
     }
     <hr />
 </div>
