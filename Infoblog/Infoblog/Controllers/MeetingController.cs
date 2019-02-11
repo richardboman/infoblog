@@ -138,10 +138,9 @@ namespace Infoblog.Controllers
                 Content = poll.Content,
                 MeetingTime = model.Result,
                 Author = poll.Author,
-                Participants = poll.Participants
+                Participants = poll.Participants.ToList()
             };
             ctx.Meetings.Add(meeting);
-            ctx.SaveChanges();
             ctx.MeetingPolls.Remove(poll);
             ctx.SaveChanges();
             return RedirectToAction("Index");
