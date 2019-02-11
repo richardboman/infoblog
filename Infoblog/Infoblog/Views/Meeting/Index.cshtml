@@ -4,6 +4,8 @@
 }
 
 <h2>Mina skapade möten</h2>
+<p>@Html.ActionLink("Skapa nytt möte", "Create")</p>
+<hr />
 
 @if (Model.CreatedMeetingPolls != null && Model.CreatedMeetingPolls.Count > 0)
 {
@@ -18,9 +20,9 @@
         @foreach (var m in Model.CreatedMeetingPolls)
         {
                 <tr>
-                    <td>@Html.ActionLink(m.Title, "ShowMeeting", new { Id = m.Id })</td>
-                    <td>@Html.ActionLink(m.Content, "ShowMeeting", new { Id = m.Id })</td>
-                    <td>@Html.ActionLink(m.Author.FirstName + " " + m.Author.LastName, "ShowMeeting", new { Id = m.Id })</td>
+                    <td>@Html.ActionLink(m.Title, "PollResult", new { Id = m.Id })</td>
+                    <td>@Html.ActionLink(m.Content, "PollResult", new { Id = m.Id })</td>
+                    <td>@Html.ActionLink(m.Author.FirstName + " " + m.Author.LastName, "PollResult", new { Id = m.Id })</td>
                 </tr>
         }
     </table>
@@ -43,12 +45,4 @@ else
 {
     <p>Inga mötesinbjudningar.</p>
 }
-/**/
-
-#line default
-#line hidden
-}
-}
-}
-<p>Inga mötesinbjudningar.</p>
 

@@ -20,9 +20,13 @@ namespace Infoblog.Models
         public string FirstName { get; set; }
         [Display (Name = "Efternamn")]
         public string LastName { get; set; }
+
+        [InverseProperty("Participants")]
         public virtual ICollection<Meeting> Meetings{ get; set; }
+
         [InverseProperty("Participants")]
         public virtual ICollection<MeetingPoll> MeetingPolls { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
