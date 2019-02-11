@@ -1,0 +1,234 @@
+﻿@model Infoblog.Models.CreateMeetingViewModel
+
+@Scripts.Render("~/Scripts/jquery-3.3.1.js")
+
+@helper createDropBoxes(string hours_id, string minutes_id, string label)
+{
+    <div class="form-group">
+        <div class="col-md-10">
+            @{
+                var hours = new List<SelectListItem>();
+                for (int i = 0; i < 24; i++)
+                {
+                    string displayTxt;
+                    if (i < 10)
+                    {
+                        displayTxt = "0" + i;
+                    }
+                    else
+                    {
+                        displayTxt = i.ToString();
+                    }
+                    hours.Add(new SelectListItem()
+                    {
+
+                        Text = displayTxt,
+                        Value = displayTxt
+                    });
+                }
+
+                var minutes = new List<SelectListItem>();
+                for (int i = 0; i < 60; i++)
+                {
+                    string displayTxt;
+                    if (i < 10)
+                    {
+                        displayTxt = "0" + i;
+                    }
+                    else
+                    {
+                        displayTxt = i.ToString();
+                    }
+                    minutes.Add(new SelectListItem()
+                    {
+
+                        Text = displayTxt,
+                        Value = displayTxt
+                    });
+                }
+            }
+            <div class="form-group">
+                <label class="control-label col-md-2">@label</label>
+                <div class="col-md-4">
+                    @Html.DropDownList(hours_id, hours, "Timmar", new { @class = "form-control" })
+                </div>
+                <div class="col-md-4">
+                    @Html.DropDownList(minutes_id, minutes, "Minuter", new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h2>Skapa nytt möte</h2>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!---Lägg till ny mötestid-->
+                <div class="form-group">
+                    <label class="control-label col-md-2">Datum</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="date" id="meetingDate" />
+                    </div>
+                </div>
+
+                @createDropBoxes("startHours", "startMinutes", "Starttid")
+
+                @createDropBoxes("endHours", "endMinutes", "Sluttid")
+
+                <div class=" form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button id="btnAddMeetingTime" class="btn btn-default">Lägg till tid</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Lägg till deltagare</label>
+                    <select class="form-control" multiple id="selectParticipant">
+                        @foreach (var u in Model.AllUsers)
+                        {
+                            <option value="@u.Email,@u.FirstName @u.LastName">@u.FirstName @u.LastName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button class="btn btn-default" id="btnAddParticipant">Lägg till deltagare</button>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <table class="table table-striped table-hover" id="meetingTimeTable">
+            <thead>
+                <tr>
+                    <th>Mötestider</th>
+                </tr>
+            </thead>
+        </table>
+        <table class="table table-striped table-hover" id="participantsTable">
+            <thead>
+                <tr>
+                    <th>Deltagare</th>
+                </tr>
+            </thead>
+        </table>
+        <input id="createMeetingPoll" type="submit" value="Skapa mötesinbdjudan" class="btn btn-default" />
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        var meetingTimes = new Array();
+        var participants = new Array();
+
+        //Lägg till mötestid
+        $('#btnAddMeetingTime').on('click', function (ev) {
+            ev.preventDefault();
+
+            var meetingTime = $('#meetingDate').val() + " " + $('#startHours').val() + ":" + $('#startMinutes').val() +
+                "-" + $('#endHours').val() + ":" + $('#endMinutes').val();
+
+            var exists = (meetingTimes.indexOf(meetingTime) > -1);
+            if (!exists) {
+                
+                var row = $('<tr></tr>');
+                row.append('<td>' + meetingTime + '</td>');
+
+                $('#meetingTimeTable').append(row);
+
+                meetingTimes.push(meetingTime);
+            }    
+            else {
+                alert("Tiden finns redan i listan!");
+            }
+
+        });
+
+        //Lägg till deltagare
+        $('#btnAddParticipant').on('click', function (ev) {
+            ev.preventDefault();
+
+            $('#selectParticipant option:selected').each(function () {
+                var email = $(this).val().toString().split(",")[0];
+                var name = $(this).val().toString().split(",")[1];
+                var invited = { Email: email, Name: name };
+
+                var exists = participants.filter(p => (p.Email === invited.Email));
+                if (exists.length === 0) {
+                    participants.push(invited);
+                    var row = $('<tr></tr>');
+                    row.append('<td>' + invited.Name + '</td>');
+                    $('#participantsTable').append(row);
+                }
+                else {
+                    alert(invited.Name + " finns redan i listan.")
+                }
+            });
+        });
+
+        //Skapa mötet
+        $('#createMeetingPoll').on('click', function (ev) {
+            ev.preventDefault();
+
+            var userEmails = participants.map(u => u.Email);
+
+            var data = {
+                Title: $('#Title').val(),
+                Content: $('#Content').val(),
+                MeetingTimes: meetingTimes,
+                Participants: userEmails
+
+            };
+
+            $.ajax({
+                url: '/Meeting/CreateMeetingPoll',
+                type: 'POST',
+                data: data,
+                success: function () {
+                    window.location.href = "/Meeting/Index"
+                },
+                error: function (response) {
+                    alert("Någonting gick fel. Pröva igen!");
+                }
+            });
+        });
+
+    });
+
+</script>
+

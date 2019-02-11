@@ -5,27 +5,59 @@
 
 @Html.Partial("WritePost")
 
-    @foreach (var p in Model.Posts)
-    {
-        <div class="row">
-            <h3>@p.Title</h3>
-            <p>@p.Content</p>
-            <span>
-                @if (p.FilePath != null)
-                {
-
-                    <a href="@Url.Content(p.FilePath)" style="max-width: 200px;" download="@p.FilePath"> @p.FilePath </a>
-
-                }
-
-            </span>
-            <br />
-            <span class="text-info">@p.Author</span>
-            <span class="text-info">@p.Date</span>
-        </div>
+@using (Html.BeginForm("ShowFilteredPost", "Post", FormMethod.Post, new { enctype = "Multipart/form-data" }))
+{
+<div>
+<hr /> 
+    @{Html.RenderAction("_CategoryFilterPartialView", "Category");}
+    @Html.HiddenFor(model => model.CategoryId)
+    <input type="submit" value="Filtrera" id="Filter" class="btn btn-default" />
+    @Html.ActionLink("Återställ", "ShowPost", null, new { @class = "btn btn-default" })
     <hr />
-    }
-    <p>@ViewBag.ErrorMessage</p>
+</div>
+
+   
+}
+
+
+
+@foreach (var p in Model.Posts)
+{
+
+
+    <div class="row">
+
+        <h3>@p.Title</h3>
+        <p>Kategori: @p.CategoryModel.Name</p>
+        <p>@p.Content</p>
+
+        <span>
+            @if (p.FilePath != null)
+            {
+
+                <a href="@Url.Content(p.FilePath)" style="max-width: 200px;" download="@p.FilePath"> @p.FilePath </a>
+
+            }
+
+        </span>
+        <br />
+        <span class="text-info">@p.Author</span>
+        <span class="text-info">@p.Date</span>
+        @if (p.Author == User.Identity.Name)
+        {
+            @Html.ActionLink("Ändra", "EditPost", "Post", new {Id = p.Id, Content = p.Content, Title = p.Title , FilePath = p.FilePath},
+                new { @class = "btn btn-warning" })
+            @Html.ActionLink("Ta bort", "RemovePost", "Post", new { Id = p.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Är du säker på att du vill ta bort detta inlägg?');" })
+        }
+
+
+    </div>
+
+
+    <hr />
+}
+<p>@ViewBag.ErrorMessage</p>
+
 
 
 
