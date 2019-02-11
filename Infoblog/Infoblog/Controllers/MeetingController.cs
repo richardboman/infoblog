@@ -96,7 +96,7 @@ namespace Infoblog.Controllers
 
 
             var pollOptions = new List<PollOption>();
-
+            var notification = new SendEmailController();
             foreach(var time in meetingData.MeetingTimes)
             {
                 var option = new PollOption() { MeetingTime = time, Votes = 0, MeetingPoll = mp };
@@ -107,6 +107,7 @@ namespace Infoblog.Controllers
 
             ctx.MeetingPolls.Add(mp);
             ctx.SaveChanges();
+            notification.EmailPollInvitation(mp);
 
             return RedirectToAction("Index");
         }
@@ -138,10 +139,9 @@ namespace Infoblog.Controllers
                 Content = poll.Content,
                 MeetingTime = model.Result,
                 Author = poll.Author,
-                Participants = poll.Participants
+                Participants = poll.Participants.ToList()
             };
             ctx.Meetings.Add(meeting);
-            ctx.SaveChanges();
             ctx.MeetingPolls.Remove(poll);
             ctx.SaveChanges();
             return RedirectToAction("Index");
