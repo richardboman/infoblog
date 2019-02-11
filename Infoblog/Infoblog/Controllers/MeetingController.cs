@@ -29,11 +29,10 @@ namespace Infoblog.Controllers
             var ctx = new ApplicationDbContext();
             var user = ctx.Users.FirstOrDefault(u => u.Id.Equals(userId));
             var mvm = new AllMeetingsViewModel();
+
+            //Hämta de mötesomröstningar som den inloggade användaren är inbjuden till
             mvm.InvitedMeetingPolls = new List<MeetingPoll>();
-
-
             var pl = ctx.MeetingPolls.Select(m => new { m.Participants, MeetingPoll = m}).ToList();
-
             foreach(var p in pl)
             {
                 if(p.Participants.Contains(user))
@@ -42,6 +41,20 @@ namespace Infoblog.Controllers
                 }
             }
 
+            //Hämta till de möten som den inloggade användaren är inbjuden till
+            mvm.InvitedMeetings = new List<Meeting>();
+            var meetings = ctx.Meetings;
+            foreach (var m in meetings)
+            {
+                if (m.Author.Equals(user))
+                {
+                    mvm.InvitedMeetings.Add(m);
+                }
+            }
+
+            //Hämta användarens skapade möten
+            mvm.CreatedMeetings = ctx.Meetings.Where(m => m.Author.Id.Equals(userId)).ToList();
+            //Hämta användarens skapade mötesomröstningar
             mvm.CreatedMeetingPolls = ctx.MeetingPolls.Where(m => m.Author.Id.Equals(userId)).ToList();
             
             return View(mvm);

@@ -1,6 +1,6 @@
 ﻿@model Infoblog.Models.Meetings.AllMeetingsViewModel
 @{
-                ViewBag.Title = "Möten";
+    ViewBag.Title = "Möten";
 }
 
 <h2>Mina skapade möten</h2>
@@ -15,15 +15,26 @@
                 <th>Titel</th>
                 <th>Beskrivning</th>
                 <th>Skapad av</th>
+                <th>Tid</th>
             </tr>
         </thead>
         @foreach (var m in Model.CreatedMeetingPolls)
         {
-                <tr>
-                    <td>@Html.ActionLink(m.Title, "PollResult", new { Id = m.Id })</td>
-                    <td>@Html.ActionLink(m.Content, "PollResult", new { Id = m.Id })</td>
-                    <td>@Html.ActionLink(m.Author.FirstName + " " + m.Author.LastName, "PollResult", new { Id = m.Id })</td>
-                </tr>
+            <tr>
+                <td>@Html.ActionLink(m.Title, "PollResult", new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.Content, "PollResult", new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.Author.FirstName + " " + m.Author.LastName, "PollResult", new { Id = m.Id })</td>
+                <td>Omröstning pågår</td>
+            </tr>
+        }
+        @foreach (var m in Model.CreatedMeetings)
+        {
+            <tr>
+                <td>@Html.ActionLink(m.Title, "PollResult", new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.Content, "PollResult", new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.Author.FirstName + " " + m.Author.LastName, "PollResult", new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.MeetingTime, "PollResult", new { Id = m.Id })</td>
+            </tr>
         }
     </table>
 }
@@ -40,6 +51,17 @@ else
     {
         Html.ActionLink(m.Title, "ShowMeeting", new { Id = m.Id });
     }
+
+    foreach (var m in Model.InvitedMeetings)
+    {
+        <tr>
+            <td>@Html.ActionLink(m.Title, "PollResult", new { Id = m.Id })</td>
+            <td>@Html.ActionLink(m.Content, "PollResult", new { Id = m.Id })</td>
+            <td>@Html.ActionLink(m.Author.FirstName + " " + m.Author.LastName, "PollResult", new { Id = m.Id })</td>
+            <td>@Html.ActionLink(m.MeetingTime, "PollResult", new { Id = m.Id })</td>
+        </tr>
+    }
+
 }
 else
 {
