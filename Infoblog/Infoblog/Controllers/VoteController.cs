@@ -13,7 +13,24 @@ namespace Infoblog.Controllers
         // GET: Vote
         public ActionResult ViewVote()
         {
-            return View();
+            var ctx = new ApplicationDbContext();
+            var meetings = ctx.MeetingPolls.OrderByDescending(p => p.Id).ToList();
+            var meetingViewModels = new List<MeetingPoll>();
+            foreach (var meeting in meetings)
+            {
+                //var user = ctx.Users.SingleOrDefault(u => u.Email == meeting.Author.ToString());
+                meetingViewModels.Add(new MeetingPoll()
+                {
+                    Id = meeting.Id,
+                    Author = meeting.Author,
+                    Content = meeting.Content,
+                    Title = meeting.Title,
+                    PollOptions = meeting.PollOptions,
+                    Participants = meeting.Participants
+                });
+                
+            }
+            return View(meetingViewModels);
         }
 
         public ActionResult AddMeetingPost(string userId, int votes)
