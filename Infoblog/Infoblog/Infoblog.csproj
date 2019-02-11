@@ -229,6 +229,7 @@
     <Compile Include="Models\EducationPostModel.cs" />
     <Compile Include="Models\Meetings\Meeting.cs" />
     <Compile Include="Models\Meetings\MeetingPoll.cs" />
+    <Compile Include="Models\Meetings\MeetingPollResultViewModel.cs" />
     <Compile Include="Models\Meetings\MeetingTime.cs" />
     <Compile Include="Models\Meetings\AllMeetingsViewModel.cs" />
     <Compile Include="Models\Meetings\PollOption.cs" />
@@ -338,6 +339,7 @@
     <Content Include="Views\Post\EditInformalPost.cshtml" />
     <Content Include="Views\Vote\ViewVote.cshtml" />
     <Content Include="Views\Category\_CategoryFilterPartialView.cshtml" />
+    <Content Include="Views\Meeting\PollResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,0 +1,34 @@
+﻿@model Infoblog.Models.Meetings.MeetingPollResultViewModel
+@using Infoblog.Models;
+
+
+
+<div class="col-md-12">
+    <h4>@Model.Title</h4>
+    <p>@Model.Content</p>
+    @using (Html.BeginForm("CreateMeeting", "Meeting", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.HiddenFor(m => m.PollId, Model.PollId);
+
+        <table class="table table-striped table-hover" id="meetingTimeTable">
+            <thead>
+                <tr>
+                    <th>Mötestider</th>
+                    <th>Antal röster</th>
+                    <th>Välj tid</th>
+                </tr>
+            </thead>
+            @foreach (var po in Model.PollOptions)
+            {
+                <tr>
+                    <td>@po.MeetingTime</td>
+                    <td>@po.Votes</td>
+                    <td>@Html.RadioButtonFor(m => m.Result, po.MeetingTime)</td>
+                </tr>
+            }
+        </table>
+        <input id="createMeeting" type="submit" value="Bekräfta tid och skapa möte" class="btn btn-default" />
+
+}
+
+</div>
