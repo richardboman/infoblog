@@ -1,29 +1,16 @@
 ﻿@using Infoblog.Models.Meetings
-@model MeetingViewModel
+@model.MeetingViewModel
 
-@{
-    ViewBag.Title = "ViewVote";
-}
 
- 
-<body id="cool">
-        <h2 id="titel">Röstning om möte</h2>
+@foreach(var poll in Model.InvitedMeetingPolls)
+{
+
+    <body id="cool">
+        <h2 id="titel">Model.Author</h2>
         <hr />
         <div id="cool2"> <span id="question">Vilken tid passar er bäst?</span></div>
         <br />
         <div id="container">
-            @if (!ModelState)
-            {
-            foreach (var poll in Model.InvitedMeetingPolls)
-            {
-                foreach (var p in poll.PollOptions)
-                {
-
-
-                <div><span>0</span><button id="B1" data-voted="false">Rösta</button>p.MeetingTime</div>
-                }
-            }
-            }
 
             <div><span>0</span><button id="B1" data-voted="false">Rösta</button>08:00-09:00</div>
 
@@ -37,8 +24,11 @@
 
             <div><span>0</span><button id="B1" data-voted="false">Rösta</button>model.blablabal</div>
         </div>
-    @*}*@
     </body>
+
+}
+
+
 
 @section scripts {
     <script>
@@ -62,4 +52,4 @@
             });
         });
     </script>
-    }
+}

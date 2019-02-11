@@ -1,19 +1,54 @@
-﻿@model Infoblog.Models.Meetings.MeetingViewModel
+﻿@model Infoblog.Models.Meetings.AllMeetingsViewModel
 @{
-    ViewBag.Title = "Möten";
+                ViewBag.Title = "Möten";
 }
 
 <h2>Mina skapade möten</h2>
-@foreach(var m in Model.CreatedMeetingPolls)
+
+@if (Model.CreatedMeetingPolls != null && Model.CreatedMeetingPolls.Count > 0)
 {
-    <a>@m.Title</a>
+    <table class="table table-striped table-hover" id="meetingTimeTable">
+        <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Beskrivning</th>
+                <th>Skapad av</th>
+            </tr>
+        </thead>
+        @foreach (var m in Model.CreatedMeetingPolls)
+        {
+                <tr>
+                    <td>@Html.ActionLink(m.Title, "ShowMeeting", new { Id = m.Id })</td>
+                    <td>@Html.ActionLink(m.Content, "ShowMeeting", new { Id = m.Id })</td>
+                    <td>@Html.ActionLink(m.Author.FirstName + " " + m.Author.LastName, "ShowMeeting", new { Id = m.Id })</td>
+                </tr>
+        }
+    </table>
 }
+else
+{
+    <p> Inga skapade möten.</p>
+}
+
 
 <h2>Mina mötesinbjudningar</h2>
-@foreach(var m in Model.InvitedMeetingPolls)
+@if (Model.CreatedMeetingPolls != null && Model.CreatedMeetingPolls.Count > 0)
 {
-    <a>@m.Title</a>
+    foreach (var m in Model.InvitedMeetingPolls)
+    {
+        Html.ActionLink(m.Title, "ShowMeeting", new { Id = m.Id });
+    }
 }
+else
+{
+    <p>Inga mötesinbjudningar.</p>
+}
+/**/
 
-
+#line default
+#line hidden
+}
+}
+}
+<p>Inga mötesinbjudningar.</p>
 
