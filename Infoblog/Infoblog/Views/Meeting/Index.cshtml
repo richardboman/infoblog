@@ -64,9 +64,9 @@
         {
 
             <tr>
-                <td>@Html.ActionLink(m.Title, "PollResult", new { Id = m.Id })</td>
-                <td>@Html.ActionLink(m.Content, "PollResult", new { Id = m.Id })</td>
-                <td>@Html.ActionLink(m.Author.FirstName + " " + m.Author.LastName, "PollResult", new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.Title, "ViewVote", "Vote", new { meetingPollId = m.Id }, new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.Content, "ViewVote", "Vote", new { meetingPollId = m.Id }, new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.Author.FirstName + " " + m.Author.LastName, "ViewVote", "Vote", new { meetingPollId = m.Id }, new { Id = m.Id })</td>
                 <td>Omröstning Pågår</td>
             </tr>
         }
