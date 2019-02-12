@@ -11,15 +11,11 @@ namespace Infoblog.Controllers
     public class VoteController : Controller
     {
         // GET: Vote
-        public ActionResult ViewVote()
+        public ActionResult ViewVote(int meetingPollId)
         {
             var ctx = new ApplicationDbContext();
-            var meetings = ctx.MeetingPolls.OrderByDescending(p => p.Id).ToList();
-            var meetingViewModels = new List<MeetingPoll>();
-            foreach (var meeting in meetings)
-            {
-                //var user = ctx.Users.SingleOrDefault(u => u.Email == meeting.Author.ToString());
-                meetingViewModels.Add(new MeetingPoll()
+            var meeting = ctx.MeetingPolls.Where(p => p.Id == meetingPollId).ToList().FirstOrDefault();
+            var meetingViewModel = new MeetingPoll
                 {
                     Id = meeting.Id,
                     Author = meeting.Author,
@@ -27,26 +23,35 @@ namespace Infoblog.Controllers
                     Title = meeting.Title,
                     PollOptions = meeting.PollOptions,
                     Participants = meeting.Participants
-                });
-                
-            }
-            return View(meetingViewModels);
+                };
+
+            return View(meetingViewModel);
         }
 
-        public ActionResult AddMeetingPost(string userId, int votes)
+        /*public ActionResult AddVote(int pollId, int votes, string meetingTime, ApplicationUser a, string t, string c)
         {
+            var ctx = new ApplicationDbContext();
             if (ModelState.IsValid)
             {
-                var ctx = new ApplicationDbContext();
-                ctx.VoteTable.Add(new VoteModel
+
+                ctx.MeetingPolls.Add(new MeetingPoll
                 {
-                    UserID = userId,
-                    Votes = votes,
+                    Author = a,
+                    Title = t,
+                    Content = c,
+                    PollOptions = (new PollOption
+                    {
+                        Votes = votes,
+                        MeetingPollId = pollId
+                    }
+                    )
                 });
+                    
+                };
                 ctx.SaveChanges();
 
-            }
+            
             return Redirect(Request.UrlReferrer.ToString());
-        }
+        }*/
     }
 }
