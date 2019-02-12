@@ -45,9 +45,9 @@
             @foreach (var po in Model.PollOptions)
             {
                 <tr>
-                    <td>@po.MeetingTime</td>
+                    <td>@po.Start - @po.End.Hour:@po.End.Minute</td>
                     <td>@po.Votes</td>
-                    <td>@Html.RadioButtonFor(m => m.Result, po.MeetingTime)</td>
+                    <td>@Html.RadioButtonFor(m => m.SelectedTime, po.Start + ";" + po.End)</td>
                 </tr>
             }
         </table>

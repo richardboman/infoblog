@@ -65,10 +65,14 @@ namespace Infoblog.Controllers
         public ActionResult Create()
         {
             var ctx = new ApplicationDbContext();
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = ctx.Users.FirstOrDefault(u => u.Id == currentUserId);
+            var allUsers = ctx.Users.ToList();
+            allUsers.Remove(currentUser);
             var model = new CreateMeetingViewModel
             {
                 MeetingTimes = new List<MeetingTime>(),
-                AllUsers = ctx.Users.ToList()
+                AllUsers = allUsers
             };
             return View(model);
         }
@@ -94,12 +98,22 @@ namespace Infoblog.Controllers
                 mp.Participants.Add(user);
             }
 
-
             var pollOptions = new List<PollOption>();
             var notification = new SendEmailController();
+
+            
             foreach(var time in meetingData.MeetingTimes)
             {
-                var option = new PollOption() { MeetingTime = time, Votes = 0, MeetingPoll = mp };
+                var start = DateTime.Parse(time.Split(';')[0]);
+                var end = DateTime.Parse(time.Split(';')[1]);
+
+                var option = new PollOption() {
+                    Start = start,
+                    End = end,
+                    Votes = 0,
+                    MeetingPoll = mp
+                };
+
                 pollOptions.Add(option);
             }
 
@@ -107,6 +121,7 @@ namespace Infoblog.Controllers
 
             ctx.MeetingPolls.Add(mp);
             ctx.SaveChanges();
+
             notification.EmailPollInvitation(mp);
 
             return RedirectToAction("Index");
@@ -133,14 +148,19 @@ namespace Infoblog.Controllers
         {
             var ctx = new ApplicationDbContext();
             var poll = ctx.MeetingPolls.FirstOrDefault(p => p.Id == model.PollId);
+            var start = DateTime.Parse(model.SelectedTime.Split(';')[0]);
+            var end = DateTime.Parse(model.SelectedTime.Split(';')[1]);
+
             var meeting = new Meeting()
             {
                 Title = poll.Title,
                 Content = poll.Content,
-                MeetingTime = model.Result,
                 Author = poll.Author,
+                Start = start,
+                End = end,
                 Participants = poll.Participants.ToList()
             };
+
             ctx.Meetings.Add(meeting);
             ctx.MeetingPolls.Remove(poll);
             ctx.SaveChanges();

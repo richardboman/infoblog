@@ -1,0 +1,38 @@
+﻿@model List<FullCalendar.Event>
+@using FullCalendar
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/fullcalendar.min.js"></script>
+<script src="~/Scripts/fullcalendar.helper.min.js"></script>
+<script src='~/Scripts/locale/sv.js'></script>
+<link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
+
+<h2>Kalender</h2>
+
+<div class="col-md-12">
+    @Html.FullCalendar(settings =>
+{
+    settings.Name = "calendar";
+    settings.CssClass = "css-test";
+    settings.Header = new Header
+    {
+        Left = new ControlsBuilder().AddButton(HeaderButton.Prev).AddSeparator(HeaderSeparator.Adjacent)
+                    .AddButton(HeaderButton.Next).AddSeparator(HeaderSeparator.Gap).AddButton(HeaderButton.Today),
+        Center = new ControlsBuilder().AddTitle(),
+        Right = new ControlsBuilder("month,agendaWeek ").AddView(AvailableView.AgendaDay)
+    };
+    settings.DefaultView = AvailableView.AgendaWeek.ToString();
+    settings.Editable = true;
+    settings.AllDaySlot = false;
+    settings.Selectable = true;
+    settings.SlotDuration = TimeSpan.FromMinutes(15);
+    settings.Locale = "sv";
+    settings.Events = Events.AsArray(Model);
+    settings.ScrollTime = TimeSpan.Parse(DateTime.Now.Hour.ToString());
+
+    //settings.Events = Events.AsJsonFeed(Url.Action("GetMeetings", "Meeting"));
+})
+</div>
+
