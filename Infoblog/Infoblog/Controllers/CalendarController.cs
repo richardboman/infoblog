@@ -30,7 +30,8 @@ namespace Infoblog.Controllers
             {
                 var additionalFields = new Dictionary<string, string>
                 {
-                    { "author", m.Author.FirstName + " " + m.Author.LastName }
+                    { "author", m.Author.FirstName + " " + m.Author.LastName },
+                    { "content", m.Content }
                 };
                 var colorInCalendar = (m.Author.Id == currentUserId) ? Color.Red : Color.Blue;
   
@@ -41,7 +42,7 @@ namespace Infoblog.Controllers
                     AdditionalFields = additionalFields,
                     Start = m.Start,
                     End = m.End,
-                    Url = Url.Action("ViewMeeting", "Meeting", new { id = m.Id }),
+                    Url = Url.Action("View", "Meeting", new { id = m.Id }),
                     Color = colorInCalendar
                    
                 });

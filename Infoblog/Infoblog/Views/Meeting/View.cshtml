@@ -8,7 +8,7 @@
     <p>@Model.Content</p>
     @if (Model.Author.Id == User.Identity.GetUserId())
     {
-        <p>@Html.ActionLink("Ändra", "EditMeeting", new { id = Model.Id }, new { @class = "btn btn-warning btn-sm" })</p>
+        <p>@Html.ActionLink("Ändra", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning btn-sm" })</p>
     }
     <hr />
 

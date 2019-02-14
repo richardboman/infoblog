@@ -34,7 +34,7 @@
         foreach (var m in Model.CreatedMeetings)
         {
             <tr>
-                <td>@Html.ActionLink(m.Title, "ViewMeeting", new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.Title, "View", new { Id = m.Id })</td>
                 <td>@m.Author.FirstName @m.Author.LastName</td>
                 <td>@String.Format("{0:yyyy/MM/dd: HH:mm}", m.Start) - @String.Format("{0:HH:mm}", m.End)</td>
             </tr>
@@ -70,7 +70,7 @@
         foreach (var m in Model.InvitedMeetings)
         {
             <tr>
-                <td>@Html.ActionLink(m.Title, "ViewMeeting", new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.Title, "View", new { Id = m.Id })</td>
                 <td>@m.Author.FirstName @m.Author.LastName</td>
                 <td>@String.Format("{0:yyyy/M/d HH:mm}", m.Start) - @String.Format("{0:HH:mm}", m.End)</td>
             </tr>
