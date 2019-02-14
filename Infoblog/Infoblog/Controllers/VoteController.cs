@@ -28,30 +28,30 @@ namespace Infoblog.Controllers
             return View(meetingViewModel);
         }
 
-        /*public ActionResult AddVote(int pollId, int votes, string meetingTime, ApplicationUser a, string t, string c)
+        public ActionResult AddVote(int pollId, int votes, int pollOptionId)
         {
             var ctx = new ApplicationDbContext();
             if (ModelState.IsValid)
             {
+                var meeting = ctx.MeetingPolls.Where(p => pollId == p.Id).ToList().FirstOrDefault();
 
-                ctx.MeetingPolls.Add(new MeetingPoll
+                var polloption = meeting.PollOptions.Where(p => p.Id == pollOptionId).ToList().FirstOrDefault();
+
+                polloption.Votes = votes;
+                
+                /*ctx.MeetingPolls.Add(new MeetingPoll
                 {
                     Author = a,
                     Title = t,
                     Content = c,
-                    PollOptions = (new PollOption
-                    {
-                        Votes = votes,
-                        MeetingPollId = pollId
-                    }
-                    )
+                    PollOptions = 
                 });
-                    
-                };
+                 */   
+            };
                 ctx.SaveChanges();
 
             
             return Redirect(Request.UrlReferrer.ToString());
-        }*/
+        }
     }
 }

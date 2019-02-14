@@ -1,0 +1,41 @@
+﻿@model Infoblog.Models.Meeting
+@using Microsoft.AspNet.Identity;
+
+
+<div class="col-md-12">
+    <h2>@Model.Title</h2>
+    <h4>Beskrivning</h4>
+    <p>@Model.Content</p>
+    @if (Model.Author.Id == User.Identity.GetUserId())
+    {
+        <p>@Html.ActionLink("Ändra", "EditMeeting", new { id = Model.Id }, new { @class = "btn btn-warning btn-sm" })</p>
+    }
+    <hr />
+
+    <p>
+        <h4>Skapare:</h4>@{ var email = "mailto:" + Model.Author.Email;}
+        <a href="@email">@Model.Author.FirstName @Model.Author.LastName</a>
+    </p>
+    <h4>Datum:</h4> @String.Format("{0:yyyy/MM/dd}", @Model.Start)
+    <h4>Tid:</h4> @String.Format("{0:HH:mm} - {1:HH:mm}", Model.Start, Model.End)
+
+
+</div>
+<div class="col-md-12">
+    <h4>Deltagare:</h4>
+    <table class="table table-striped table-hover" id="meetingTimeTable">
+        <thead>
+            <tr>
+                <th>Namn</th>
+                <th>Epost</th>
+            </tr>
+        </thead>
+        @foreach (var p in Model.Participants)
+        {
+            <tr>
+                <td>@p.FirstName @p.LastName</td>
+                <td>@p.Email</td>
+            </tr>
+        }
+    </table>
+</div>

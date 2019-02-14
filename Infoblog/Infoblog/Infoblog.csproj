@@ -223,6 +223,7 @@
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ScienceController.cs" />
     <Compile Include="Controllers\SendEmailController.cs" />
+    <Compile Include="Controllers\VoteApiController.cs" />
     <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -250,7 +251,6 @@
     <Compile Include="Models\ScienceModel.cs" />
     <Compile Include="Models\ScienceViewModel.cs" />
     <Compile Include="Models\ValidateFile.cs" />
-    <Compile Include="Models\VoteModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -452,6 +452,8 @@
     <Content Include="Views\Meeting\PollResult.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
     <Content Include="Views\Manage\NotificationSettings.cshtml" />
+    <Content Include="Views\Meeting\View.cshtml" />
+    <Content Include="Views\Meeting\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

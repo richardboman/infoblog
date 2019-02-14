@@ -167,5 +167,17 @@ namespace Infoblog.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult View (int id)
+        {
+            var model = new ApplicationDbContext().Meetings.FirstOrDefault(m => m.Id == id);
+            return View(model);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var model = new ApplicationDbContext().Meetings.FirstOrDefault(m => m.Id == id); 
+            return View(model);
+        }
+
     }
 }
