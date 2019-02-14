@@ -11,25 +11,47 @@ namespace Infoblog.Controllers
     public class VoteController : Controller
     {
         // GET: Vote
-        public ActionResult ViewVote()
+        public ActionResult ViewVote(int meetingPollId)
         {
-            return View();
+            var ctx = new ApplicationDbContext();
+            var meeting = ctx.MeetingPolls.Where(p => p.Id == meetingPollId).ToList().FirstOrDefault();
+            var meetingViewModel = new MeetingPoll
+                {
+                    Id = meeting.Id,
+                    Author = meeting.Author,
+                    Content = meeting.Content,
+                    Title = meeting.Title,
+                    PollOptions = meeting.PollOptions,
+                    Participants = meeting.Participants
+                };
+
+            return View(meetingViewModel);
         }
 
-        public ActionResult AddSciencePost(string userId, int vote)
+        /*public ActionResult AddVote(int pollId, int votes, string meetingTime, ApplicationUser a, string t, string c)
         {
+            var ctx = new ApplicationDbContext();
             if (ModelState.IsValid)
             {
-                var ctx = new ApplicationDbContext();
-                ctx.VoteTable.Add(new VoteModel
+
+                ctx.MeetingPolls.Add(new MeetingPoll
                 {
-                    UserID = userId,
-                    Vote = vote,
+                    Author = a,
+                    Title = t,
+                    Content = c,
+                    PollOptions = (new PollOption
+                    {
+                        Votes = votes,
+                        MeetingPollId = pollId
+                    }
+                    )
                 });
+                    
+                };
                 ctx.SaveChanges();
 
-            }
+            
             return Redirect(Request.UrlReferrer.ToString());
-        }
+        }*/
     }
 }

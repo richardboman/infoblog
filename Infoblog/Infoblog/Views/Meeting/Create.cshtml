@@ -145,7 +145,7 @@
                 </tr>
             </thead>
         </table>
-        <input id="createMeetingPoll" type="submit" value="Skapa mötesinbdjudan" class="btn btn-default" />
+        <input id="createMeetingPoll" type="submit" value="Skapa mötesinbjudan" class="btn btn-default" />
     </div>
 
 </div>
@@ -160,14 +160,25 @@
         $('#btnAddMeetingTime').on('click', function (ev) {
             ev.preventDefault();
 
-            var meetingTime = $('#meetingDate').val() + " " + $('#startHours').val() + ":" + $('#startMinutes').val() +
-                "-" + $('#endHours').val() + ":" + $('#endMinutes').val();
+            var startTime =
+                $('#meetingDate').val() + " " +
+                $('#startHours').val() + ":" +
+                $('#startMinutes').val();
 
+            var endTime = $('#meetingDate').val() + " " +
+                $('#endHours').val() + ":" +
+                $('#endMinutes').val();
+
+            var meetingTime = startTime + ";" + endTime;
+            
             var exists = (meetingTimes.indexOf(meetingTime) > -1);
             if (!exists) {
                 
                 var row = $('<tr></tr>');
-                row.append('<td>' + meetingTime + '</td>');
+                var start = meetingTime.split(';')[0];
+                var end = meetingTime.split(';')[1];
+
+                row.append('<td>' + start + " - " + end + '</td>');
 
                 $('#meetingTimeTable').append(row);
 
@@ -216,7 +227,7 @@
             };
 
             $.ajax({
-                url: '/Meeting/CreateMeeting',
+                url: '/Meeting/CreateMeetingPoll',
                 type: 'POST',
                 data: data,
                 success: function () {

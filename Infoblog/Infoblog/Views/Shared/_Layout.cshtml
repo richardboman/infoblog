@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -26,7 +27,8 @@
                     <li>@Html.ActionLink("Utbildning", "EducationPostView", "Education")</li>
                     <li>@Html.ActionLink("Forskning", "SciencePostView", "Science")</li>
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Mötesbokning", "ViewVote", "Vote")</li>
+                    <li>@Html.ActionLink("Mötesbokning", "Index", "Meeting")</li>
+                    <li>@Html.ActionLink("Kalender", "Index", "Calendar")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

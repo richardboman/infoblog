@@ -4,16 +4,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using AuthorizeAttribute = System.Web.Http.AuthorizeAttribute;
+using System.Web.Http;
 
 namespace Infoblog.Controllers
 {
-    [Authorize]
+    [System.Web.Mvc.Authorize]
     public class MeetingController : Controller
     {
+
+        public class MeetingData
+        {
+            public string Title { get; set; }
+            public string Content { get; set; }
+            public string[] Participants { get; set; }
+            public string[] MeetingTimes { get; set; }
+        }
+
         // GET: Meeting
         public ActionResult Index()
         {
@@ -21,11 +29,10 @@ namespace Infoblog.Controllers
             var ctx = new ApplicationDbContext();
             var user = ctx.Users.FirstOrDefault(u => u.Id.Equals(userId));
             var mvm = new AllMeetingsViewModel();
+
+            //Hämta de mötesomröstningar som den inloggade användaren är inbjuden till
             mvm.InvitedMeetingPolls = new List<MeetingPoll>();
-
-
             var pl = ctx.MeetingPolls.Select(m => new { m.Participants, MeetingPoll = m}).ToList();
-
             foreach(var p in pl)
             {
                 if(p.Participants.Contains(user))
@@ -34,6 +41,22 @@ namespace Infoblog.Controllers
                 }
             }
 
+            //Hämta till de möten som den inloggade användaren är inbjuden till
+            mvm.InvitedMeetings = new List<Meeting>();
+            var meetings = ctx.Meetings;
+            var participants = meetings.Select(m => new { m, m.Participants }).ToList();
+            foreach (var m in participants)
+            {
+               
+                if (m.Participants.Contains(user))
+                {
+                    mvm.InvitedMeetings.Add(m.m);
+                }
+            }
+
+            //Hämta användarens skapade möten
+            mvm.CreatedMeetings = ctx.Meetings.Where(m => m.Author.Id.Equals(userId)).ToList();
+            //Hämta användarens skapade mötesomröstningar
             mvm.CreatedMeetingPolls = ctx.MeetingPolls.Where(m => m.Author.Id.Equals(userId)).ToList();
             
             return View(mvm);
@@ -42,16 +65,20 @@ namespace Infoblog.Controllers
         public ActionResult Create()
         {
             var ctx = new ApplicationDbContext();
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = ctx.Users.FirstOrDefault(u => u.Id == currentUserId);
+            var allUsers = ctx.Users.ToList();
+            allUsers.Remove(currentUser);
             var model = new CreateMeetingViewModel
             {
                 MeetingTimes = new List<MeetingTime>(),
-                AllUsers = ctx.Users.ToList()
+                AllUsers = allUsers
             };
             return View(model);
         }
 
-        [System.Web.Http.HttpPost]
-        public ActionResult CreateMeeting([FromBody]MeetingData meetingData)
+        [System.Web.Mvc.HttpPost]
+        public ActionResult CreateMeetingPoll([FromBody]MeetingData meetingData)
         {
             var ctx = new ApplicationDbContext();
 
@@ -71,12 +98,22 @@ namespace Infoblog.Controllers
                 mp.Participants.Add(user);
             }
 
-
             var pollOptions = new List<PollOption>();
+            var notification = new SendEmailController();
 
+            
             foreach(var time in meetingData.MeetingTimes)
             {
-                var option = new PollOption() { MeetingTime = time, Votes = 0, MeetingPoll = mp };
+                var start = DateTime.Parse(time.Split(';')[0]);
+                var end = DateTime.Parse(time.Split(';')[1]);
+
+                var option = new PollOption() {
+                    Start = start,
+                    End = end,
+                    Votes = 0,
+                    MeetingPoll = mp
+                };
+
                 pollOptions.Add(option);
             }
 
@@ -85,15 +122,50 @@ namespace Infoblog.Controllers
             ctx.MeetingPolls.Add(mp);
             ctx.SaveChanges();
 
+            notification.EmailPollInvitation(mp);
+
             return RedirectToAction("Index");
         }
 
-        public class MeetingData
+        public ActionResult PollResult(int id)
         {
-            public string Title { get; set; }
-            public string Content { get; set; }
-            public string[] Participants { get; set; }
-            public string[] MeetingTimes { get; set; }
+            var ctx = new ApplicationDbContext();
+            var mp = ctx.MeetingPolls.FirstOrDefault(m => m.Id == id);
+            var view = new MeetingPollResultViewModel() {
+                PollId = mp.Id,
+                AuthorId = mp.Author.Id,
+                Title = mp.Title,
+                Content = mp.Content,
+                Participants = mp.Participants,
+                PollOptions = mp.PollOptions
+                
+            };
+            return View(view);
         }
+
+        [System.Web.Mvc.HttpPost]
+        public ActionResult CreateMeeting(MeetingPollResultViewModel model)
+        {
+            var ctx = new ApplicationDbContext();
+            var poll = ctx.MeetingPolls.FirstOrDefault(p => p.Id == model.PollId);
+            var start = DateTime.Parse(model.SelectedTime.Split(';')[0]);
+            var end = DateTime.Parse(model.SelectedTime.Split(';')[1]);
+
+            var meeting = new Meeting()
+            {
+                Title = poll.Title,
+                Content = poll.Content,
+                Author = poll.Author,
+                Start = start,
+                End = end,
+                Participants = poll.Participants.ToList()
+            };
+
+            ctx.Meetings.Add(meeting);
+            ctx.MeetingPolls.Remove(poll);
+            ctx.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }

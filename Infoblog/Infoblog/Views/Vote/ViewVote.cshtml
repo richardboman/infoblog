@@ -1,24 +1,30 @@
-﻿@{
-    ViewBag.Title = "ViewVote";
+﻿@using Infoblog.Models
+@model Infoblog.Models.MeetingPoll
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <body id="cool">
-    <h2 id="titel">Röstning om möte</h2>
+
     <hr />
     <div id="cool2"> <span id="question">Vilken tid passar er bäst?</span></div>
     <br />
-    <div id="container">
+    <div id="coool">
+            <h2 id="author">@Model.Author.FirstName&nbsp;@Model.Author.LastName</h2>
+            <div id="cool3">
+                <p2>Mötestitel:&nbsp;@Model.Title</p2>
+            <p id="content">@Model.Content</p>
+            </div>
+            @if (Model.Participants != null)
+            {
+                <div id="container">
+                @foreach (var p in Model.PollOptions)
+                {
+                    <div><span>@p.Votes</span><button id="B1" data-voted="false">Rösta</button>@p.MeetingTime</div>
 
-        <div><span>0</span><button id="B1" data-voted="false">Rösta</button>08:00-09:00</div>
-
-        <div><span>0</span><button id="B1" data-voted="false">Rösta</button>09:00-10:00</div>
-
-        <div><span>0</span><button id="B1" data-voted="false">Rösta</button>10:00-11:00</div>
-
-        <div><span>0</span><button id="B1" data-voted="false">Rösta</button>11:00-12:00</div>
-
-        <div><span>0</span><button id="B1" data-voted="false">Rösta</button>12:00-13:00</div>
-
-        <div><span>0</span><button id="B1" data-voted="false">Rösta</button>model.blablabal</div>
+                }
+                </div>
+            }
     </div>
 </body>
 
@@ -44,4 +50,4 @@
             });
         });
     </script>
-    }
+}

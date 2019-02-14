@@ -1,54 +1,88 @@
 ﻿@model Infoblog.Models.Meetings.AllMeetingsViewModel
 @{
-                ViewBag.Title = "Möten";
+    ViewBag.Title = "Möten";
 }
 
 <h2>Mina skapade möten</h2>
+<p>@Html.ActionLink("Skapa nytt möte", "Create", null, new { @class = "btn btn-default" })</p>
+<hr />
 
-@if (Model.CreatedMeetingPolls != null && Model.CreatedMeetingPolls.Count > 0)
-{
-    <table class="table table-striped table-hover" id="meetingTimeTable">
-        <thead>
-            <tr>
-                <th>Titel</th>
-                <th>Beskrivning</th>
-                <th>Skapad av</th>
-            </tr>
-        </thead>
-        @foreach (var m in Model.CreatedMeetingPolls)
+<table class="table table-striped table-hover" id="meetingTimeTable">
+    <thead>
+        <tr>
+            <th>Titel</th>
+            <th>Beskrivning</th>
+            <th>Skapad av</th>
+            <th>Tid</th>
+        </tr>
+    </thead>
+
+    @if (Model.CreatedMeetingPolls != null && Model.CreatedMeetingPolls.Count > 0)
+    {
+
+        foreach (var m in Model.CreatedMeetingPolls)
         {
-                <tr>
-                    <td>@Html.ActionLink(m.Title, "ShowMeeting", new { Id = m.Id })</td>
-                    <td>@Html.ActionLink(m.Content, "ShowMeeting", new { Id = m.Id })</td>
-                    <td>@Html.ActionLink(m.Author.FirstName + " " + m.Author.LastName, "ShowMeeting", new { Id = m.Id })</td>
-                </tr>
+            <tr>
+                <td>@Html.ActionLink(m.Title, "PollResult", new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.Content, "PollResult", new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.Author.FirstName + " " + m.Author.LastName, "PollResult", new { Id = m.Id })</td>
+                <td>Omröstning pågår</td>
+            </tr>
         }
-    </table>
-}
-else
-{
-    <p> Inga skapade möten.</p>
-}
+    }
+
+    @if (Model.CreatedMeetings != null && Model.CreatedMeetings.Count > 0)
+    {
+        foreach (var m in Model.CreatedMeetings)
+        {
+            <tr>
+                <td>@Html.ActionLink(m.Title, "PollResult", new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.Content, "PollResult", new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.Author.FirstName + " " + m.Author.LastName, "PollResult", new { Id = m.Id })</td>
+                <td>@String.Format("{0:yyyy/M/d HH:mm}", m.Start) - @String.Format("{0:HH:mm}", m.End)</td>
+            </tr>
+        }
+    }
+</table>
+
+
 
 
 <h2>Mina mötesinbjudningar</h2>
-@if (Model.CreatedMeetingPolls != null && Model.CreatedMeetingPolls.Count > 0)
-{
-    foreach (var m in Model.InvitedMeetingPolls)
+<table class="table table-striped table-hover" id="meetingTimeTable">
+    <thead>
+        <tr>
+            <th>Titel</th>
+            <th>Beskrivning</th>
+            <th>Skapad av</th>
+            <th>Tid</th>
+        </tr>
+    </thead>
+    @if (Model.InvitedMeetingPolls != null && Model.InvitedMeetingPolls.Count > 0)
     {
-        Html.ActionLink(m.Title, "ShowMeeting", new { Id = m.Id });
+        foreach (var m in Model.InvitedMeetingPolls)
+        {
+
+    <tr>
+        <td>@Html.ActionLink(m.Title, "PollResult", new { Id = m.Id })</td>
+        <td>@Html.ActionLink(m.Content, "PollResult", new { Id = m.Id })</td>
+        <td>@Html.ActionLink(m.Author.FirstName + " " + m.Author.LastName, "PollResult", new { Id = m.Id })</td>
+        <td>Omröstning Pågår</td>
+    </tr>
+        }
     }
-}
-else
-{
-    <p>Inga mötesinbjudningar.</p>
-}
-/**/
 
-#line default
-#line hidden
-}
-}
-}
-<p>Inga mötesinbjudningar.</p>
+    @if (Model.InvitedMeetings != null && Model.InvitedMeetings.Count > 0)
+    {
+        foreach (var m in Model.InvitedMeetings)
+        {
+    <tr>
+        <td>@Html.ActionLink(m.Title, "PollResult", new { Id = m.Id })</td>
+        <td>@Html.ActionLink(m.Content, "PollResult", new { Id = m.Id })</td>
+        <td>@Html.ActionLink(m.Author.FirstName + " " + m.Author.LastName, "PollResult", new { Id = m.Id })</td>
+        <td>@String.Format("{0:yyyy/M/d HH:mm}", m.Start) - @String.Format("{0:HH:mm}", m.End)</td>
+    </tr>
+        }
 
+    }
+    </table>
