@@ -13,6 +13,7 @@ namespace Infoblog.Models.Meetings
         public string Content { get; set; }
         public ICollection<PollOption> PollOptions { get; set; }
         public ICollection<ApplicationUser> Participants { get; set; }
-        public string Result { get; set; }
+
+        public string SelectedTime { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -11,10 +12,20 @@ namespace Infoblog.Models
     
         [Key]
         public int Id { get; set; }
-        public string Title { get; set; }
-        public string Content { get; set; }
-        public string MeetingTime { get; set; }
 
+        [DisplayName("Titel")]
+        public string Title { get; set; }
+
+        [DisplayName("Beskrivning")]
+        public string Content { get; set; }
+
+        [DisplayName("Start")]
+        public DateTime Start { get; set; }
+
+        [DisplayName("Slut")]
+        public DateTime End { get; set; }
+
+        [DisplayName("Skapad av")]
         public virtual ApplicationUser Author { get; set; }
 
         public virtual ICollection<ApplicationUser> Participants { get; set; }

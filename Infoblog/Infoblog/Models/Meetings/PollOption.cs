@@ -10,7 +10,9 @@ namespace Infoblog.Models.Meetings
     {
         [Key]
         public int Id { get; set; }
-        public string MeetingTime { get; set; }
+
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
         public int Votes { get; set; }
         public int MeetingPollId { get; set; }
         public virtual MeetingPoll MeetingPoll { get; set; }
