@@ -21,7 +21,7 @@
                     @*<form>*@
                         @foreach (var p in Model.PollOptions)
                         {
-                            <div><span>@p.Votes</span><button id="B1" data-voted="false" data-votes="@p.Votes">Rösta</button>@p.MeetingTime</div>
+                            <div><span>@p.Votes</span><button id="B1" data-voted="false" data-votes="@p.Votes">Rösta</button>@p.Start-@p.End</div>
 
                         }
                        @* <input type="submit" />
