@@ -238,6 +238,7 @@
     <Compile Include="Models\Meetings\MeetingTime.cs" />
     <Compile Include="Models\Meetings\AllMeetingsViewModel.cs" />
     <Compile Include="Models\Meetings\PollOption.cs" />
+    <Compile Include="Models\NotificationSettingsViewModel.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\FormalPostModel.cs" />
     <Compile Include="Models\FormalPostViewModel.cs" />
@@ -389,6 +390,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\validationScripts.js" />
     <Content Include="UploadedFiles\5ea348a1bee4adb55c09cc66834320ba195428371.jpg" />
     <Content Include="UploadedFiles\adult-business-chill-450271190623017.jpg" />
     <Content Include="UploadedFiles\Arne_bror.jpg" />
@@ -449,6 +451,7 @@
     <Content Include="Views\Category\_CategoryFilterPartialView.cshtml" />
     <Content Include="Views\Meeting\PollResult.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
+    <Content Include="Views\Manage\NotificationSettings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

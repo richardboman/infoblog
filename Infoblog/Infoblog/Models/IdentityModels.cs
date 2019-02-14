@@ -26,6 +26,7 @@ namespace Infoblog.Models
 
         [InverseProperty("Participants")]
         public virtual ICollection<MeetingPoll> MeetingPolls { get; set; }
+        public ICollection<CategoryModel> Categories { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
