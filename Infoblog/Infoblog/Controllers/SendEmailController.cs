@@ -63,7 +63,7 @@ namespace Infoblog.Controllers
         public ActionResult EmailWhenPost(FormalPostModel post)
         {
             try
-            {
+            { 
                 var user = System.Web.HttpContext.Current.User.Identity.GetUserName();
                 if (ModelState.IsValid)
                 {
