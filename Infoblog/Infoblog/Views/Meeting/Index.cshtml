@@ -58,7 +58,7 @@
         {
 
             <tr>
-                <td>@Html.ActionLink(m.Title, "ViewMeeting", new { Id = m.Id })</td>
+                <td>@Html.ActionLink(m.Title, "ViewVote", "Vote", new { meetingPollId = m.Id })</td>
                 <td>@m.Author.FirstName @m.Author.LastName</td>
                 <td>Omröstning Pågår</td>
             </tr>
