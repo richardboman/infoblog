@@ -241,6 +241,7 @@
     <Compile Include="Models\Meetings\MeetingTime.cs" />
     <Compile Include="Models\Meetings\AllMeetingsViewModel.cs" />
     <Compile Include="Models\Meetings\PollOption.cs" />
+    <Compile Include="Models\NotificationSettingsViewModel.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\FormalPostModel.cs" />
     <Compile Include="Models\FormalPostViewModel.cs" />
@@ -472,6 +473,7 @@
     <Content Include="Views\Category\_CategoryFilterPartialView.cshtml" />
     <Content Include="Views\Meeting\PollResult.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
+    <Content Include="Views\Manage\NotificationSettings.cshtml" />
     <Content Include="Views\Meeting\View.cshtml" />
     <Content Include="Views\Meeting\Edit.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />

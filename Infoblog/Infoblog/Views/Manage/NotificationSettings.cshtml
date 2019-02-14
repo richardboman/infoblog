@@ -1,0 +1,22 @@
+﻿@using Infoblog.Models
+@model NotificationSettingsViewModel
+@{
+    ViewBag.Title = "NotificationSettings";
+}
+
+<h2>Notifikationinställningar</h2>
+
+@using (Html.BeginForm("UpdateNotificationSettings", "Manage", FormMethod.Post))
+{
+    foreach (var c in Model.Categories)
+    {
+        <div class="checkbox">
+            <input type="checkbox" name="checkResp" value="@c.Id">@c.Name<br>
+        </div>
+    }
+    <input type="submit" value="Uppdatera" class="btn-default" />
+}
+
+
+
+

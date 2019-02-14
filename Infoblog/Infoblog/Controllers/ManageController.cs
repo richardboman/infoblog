@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Infoblog.Models;
+using System.Collections.Generic;
 
 namespace Infoblog.Controllers
 {
@@ -331,6 +332,43 @@ namespace Infoblog.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        public ActionResult NotificationSettings()
+        {
+            var ctx = new ApplicationDbContext();
+            var model = new NotificationSettingsViewModel();
+            model.Categories = ctx.Category.ToList();
+            return View(model);
+        }
+
+        [HttpPost]
+        public void UpdateNotificationSettings(FormCollection collection)
+        {
+            if (!string.IsNullOrEmpty(collection["checkResp"])) { 
+
+                string checkResp = collection["checkResp"];
+                string[] categoryIds = checkResp.Split(',');
+
+                var ctx = new ApplicationDbContext();
+                var userId = User.Identity.GetUserId();
+                var user = ctx.Users.First(u => u.Id == userId);
+                var userList = new List<ApplicationUser>();
+                userList.Add(user);
+                var category = new CategoryModel();
+                var categoryList = new List<CategoryModel>();
+                foreach (var id in categoryIds)
+                {
+                    var intId = Int32.Parse(id);
+                    var categoryModel = ctx.Category.First(c => c.Id == intId);
+                    categoryList.Add(categoryModel);
+                }
+                user.Categories = categoryList;
+                category.Users = userList;
+                ctx.SaveChanges();
+
+
+            }
         }
 
 #region Helpers
