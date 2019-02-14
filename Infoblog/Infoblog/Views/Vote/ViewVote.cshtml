@@ -18,11 +18,14 @@
             @if (Model.Participants != null)
             {
                 <div id="container">
-                @foreach (var p in Model.PollOptions)
-                {
-                    <div><span>@p.Votes</span><button id="B1" data-voted="false">Rösta</button>@p.MeetingTime</div>
+                    @*<form>*@
+                        @foreach (var p in Model.PollOptions)
+                        {
+                            <div><span>@p.Votes</span><button id="B1" data-voted="false" data-votes="@p.Votes">Rösta</button>@p.MeetingTime</div>
 
-                }
+                        }
+                       @* <input type="submit" />
+                    </form>*@
                 </div>
             }
     </div>
@@ -30,6 +33,14 @@
 
 @section scripts {
     <script>
+       /* if (this.data("voted") == true)
+        {
+            $(document).ready(function () {
+                let votes = $(this).data("votes");
+
+            });
+        }*/
+
         $(document).ready(function () {
             $("#container div button").click(function () {
                 let voted = $(this).data("voted");
