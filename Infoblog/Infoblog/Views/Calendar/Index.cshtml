@@ -11,6 +11,13 @@
 
 <h2>Kalender</h2>
 
+<p>
+    <span class="glyphicon glyphicon-calendar" style="color:red"></span>Skapat möte
+    <span class="glyphicon glyphicon-calendar" style="color:blue"></span>Deltagare i möte
+
+</p>
+
+
 <div class="col-md-12">
     @Html.FullCalendar(settings =>
 {
@@ -31,8 +38,8 @@
     settings.Locale = "sv";
     settings.Events = Events.AsArray(Model);
     settings.ScrollTime = TimeSpan.Parse(DateTime.Now.Hour.ToString());
-
-    //settings.Events = Events.AsJsonFeed(Url.Action("GetMeetings", "Meeting"));
+    settings.DisplayEventEnd = true;
+    settings.NowIndicator = true;
 })
 </div>
 

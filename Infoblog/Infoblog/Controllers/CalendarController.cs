@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,15 +17,22 @@ namespace Infoblog.Controllers
         {
             var ctx = new ApplicationDbContext();
             var currentUserId = User.Identity.GetUserId();
-            var currentUser = ctx.Users.FirstOrDefault(u => u.Id == currentUserId);
-            var meetings = ctx.Meetings.Where(m => m.Participants.Select(p=> p.Id).ToList().Contains(currentUserId)).ToList();
+            var invitedMeetings = ctx.Meetings.Where(m => m.Participants.Select(p=> p.Id).ToList().Contains(currentUserId)).ToList();
+            var createdMeetings = ctx.Meetings.Where(m => m.Author.Id == currentUserId).ToList();
+            var allMeetings = new List<Meeting>();
+            allMeetings.AddRange(invitedMeetings);
+            allMeetings.AddRange(createdMeetings);
 
             var events = new List<Event>();
-            foreach (var m in meetings)
-            {
-                var additionalFields = new Dictionary<string, string>();
-                additionalFields.Add("author", m.Author.FirstName + " " + m.Author.LastName);
 
+            foreach (var m in allMeetings)
+            {
+                var additionalFields = new Dictionary<string, string>
+                {
+                    { "author", m.Author.FirstName + " " + m.Author.LastName }
+                };
+                var colorInCalendar = (m.Author.Id == currentUserId) ? Color.Red : Color.Blue;
+  
                 events.Add(new Event()
                 {
                     Id = m.Id,
@@ -32,7 +40,8 @@ namespace Infoblog.Controllers
                     AdditionalFields = additionalFields,
                     Start = m.Start,
                     End = m.End,
-                    Url = "Meeting/ViewMeeting/" + m.Id
+                    Url = Url.Action("ViewMeeting", "Meeting", new { id = m.Id }),
+                    Color = colorInCalendar
                    
                 });
             }
