@@ -13,7 +13,7 @@ namespace Infoblog.Models
         public int Id { get; set; }
         public string Name { get; set; }
         [InverseProperty("Categories")]
-        public ICollection<ApplicationUser> Users { get; set; }
+        public virtual ICollection<ApplicationUser> Users { get; set; }
     }
 }
 

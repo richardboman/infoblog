@@ -352,18 +352,24 @@ namespace Infoblog.Controllers
         }
 
         [HttpPost]
-        public void UpdateNotificationSettings(FormCollection collection)
+        public ActionResult UpdateNotificationSettings(FormCollection collection)
         {
             if (!string.IsNullOrEmpty(collection["checkResp"]))
             {
+                var ctx = new ApplicationDbContext();
+                var userId = User.Identity.GetUserId();
+                var user = ctx.Users.First(u => u.Id == userId);
 
+                foreach(var c in user.Categories.ToList())
+                {
+                    user.Categories.Remove(c);
+                }
+
+                ctx.SaveChanges();
 
                 string checkResp = collection["checkResp"];
                 string[] categoryIds = checkResp.Split(',');
 
-                var ctx = new ApplicationDbContext();
-                var userId = User.Identity.GetUserId();
-                var user = ctx.Users.First(u => u.Id == userId);
                 var userList = new List<ApplicationUser>();
                 userList.Add(user);
                 var category = new CategoryModel();
@@ -377,11 +383,21 @@ namespace Infoblog.Controllers
                 user.Categories = categoryList;
                 category.Users = userList;
                 ctx.SaveChanges();
-            }
-            else
+            } else
             {
+                var ctx = new ApplicationDbContext();
+                var userId = User.Identity.GetUserId();
+                var user = ctx.Users.First(u => u.Id == userId);
 
+                foreach (var c in user.Categories.ToList())
+                {
+                    user.Categories.Remove(c);
+                }
+
+                ctx.SaveChanges();
             }
+
+            return View("NotificationSettings");
         }
 
 #region Helpers
