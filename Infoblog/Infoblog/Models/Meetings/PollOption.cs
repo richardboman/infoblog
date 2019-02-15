@@ -16,5 +16,8 @@ namespace Infoblog.Models.Meetings
         public int Votes { get; set; }
         public int MeetingPollId { get; set; }
         public virtual MeetingPoll MeetingPoll { get; set; }
+
+        public virtual ICollection<ApplicationUser> UserVotes { get; set; }
+
     }
 }

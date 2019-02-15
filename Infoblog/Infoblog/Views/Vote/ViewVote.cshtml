@@ -21,12 +21,16 @@
                 <form id="myForm">
                     @foreach (var p in Model.PollOptions)
                     {
-                        <div><span>@p.Votes</span><button id="B1"   
-                                                          data-voted="false" 
-                                                          data-votes="@p.Votes"
-                                                          data-pollOption="@p.Id"
-                                                          data-poll="@p.MeetingPollId">
-                        Rösta</button>@p.Start-@p.End</div>
+                        <div>
+                            <span>@p.Votes</span><button id="B1"
+                                                         type="submit"
+                                                         data-voted="false"
+                                                         data-votes="@p.Votes"
+                                                         data-pollOption="@p.Id"
+                                                         data-poll="@p.MeetingPollId">
+                                Rösta
+                            </button>@p.Start-@p.End
+                        </div>
 
                     }
 
@@ -35,27 +39,26 @@
         }
     </div>
 </body>
-@*Hej*@
 
 @section scripts {
     <script>
-        $('#B1').on('click', function() {
-                let vote = $(this).data("votes")++;
-                let pollOption = $(this).data("pollOption");
-                let poll = $(this).data("poll");
-                if (poll !== null) {
-                    $get(
-                        'api/controller/vote/add?poll=' + poll
-                        + '&votes' + vote  + '&pollOptionId' + pollOption,
-                        function () {
-                            window.location.reload();
+        $('#myForm').on('submit', function (e) {
+            e.preventDefault(); //Prevent normal form behavior
+            
+            let btn = $("#B1");
+            
+            
+            let vote = btn.data("votes") + 1;
+            let pollOption = btn.data("polloption");
+            let poll = btn.data("poll");
+            if (poll !== null) {
+                $.get('/api/controller/vote/add?pollId=' + poll + '&votes=' + vote + '&pollOptionId=' + pollOption,
+                    function () {
+                        window.location.reload();
+                    }
+                );
+            }
 
-                        }
-                    );
-                }
-        
         });
     </script>
 }
-
-
