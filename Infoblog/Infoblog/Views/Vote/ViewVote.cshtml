@@ -23,8 +23,9 @@
                     {
                         var hasVoted = p.UserVotes.Select(x => x.Email).ToList().Contains(User.Identity.Name);
                         <div>
-                            <span>@p.Votes</span><button id="B1"
-                                                         type="submit"
+                            <span>@p.Votes</span><button class="voteButton"
+                                                         id="B1"
+                                                         type="button"
                                                          disabled=@hasVoted
                                                          @*data-voted="false"*@
                                                          data-votes="@p.Votes"
@@ -43,15 +44,15 @@
 
 @section scripts {
     <script>
-        $('#myForm').on('submit', function (e) {
-            e.preventDefault(); //Prevent normal form behavior
+        $('.voteButton').on('click', function () {
             
-            let btn = $("#B1");
+            let btn = $(this);
             
             
             let vote = btn.data("votes") + 1;
             let pollOption = btn.data("polloption");
             let poll = btn.data("poll");
+            debugger
             if (poll !== null) {
                 $.get('/api/controller/vote/add?pollId=' + poll + '&votes=' + vote + '&pollOptionId=' + pollOption,
                     function () {

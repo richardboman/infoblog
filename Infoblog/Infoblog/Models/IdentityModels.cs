@@ -31,7 +31,7 @@ namespace Infoblog.Models
         [InverseProperty("UserVotes")]
         public virtual ICollection<PollOption> MeetingPollVotes { get; set; }
 
-        public ICollection<CategoryModel> Categories { get; set; }
+      
         public virtual ICollection<CategoryModel> Categories { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
