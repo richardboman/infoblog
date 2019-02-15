@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Infoblog.Models.Meetings;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -26,6 +27,10 @@ namespace Infoblog.Models
 
         [InverseProperty("Participants")]
         public virtual ICollection<MeetingPoll> MeetingPolls { get; set; }
+
+        [InverseProperty("UserVotes")]
+        public virtual ICollection<PollOption> MeetingPollVotes { get; set; }
+
         public ICollection<CategoryModel> Categories { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
