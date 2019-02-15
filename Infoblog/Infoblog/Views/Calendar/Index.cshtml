@@ -22,16 +22,17 @@
            Center = new ControlsBuilder().AddTitle(),
            Right = new ControlsBuilder("month,agendaWeek ").AddView(AvailableView.AgendaDay)
        };
-       settings.DefaultView = AvailableView.AgendaWeek.ToString();
-       settings.Editable = true;
+       settings.DefaultView = AvailableView.Month.ToString();
+       settings.Editable = false;
        settings.AllDaySlot = false;
        settings.Selectable = true;
-       settings.SlotDuration = TimeSpan.FromMinutes(15);
+       settings.SlotDuration = TimeSpan.FromMinutes(30);
        settings.Locale = "sv";
        settings.Events = Events.AsArray(Model);
        settings.ScrollTime = TimeSpan.Parse(DateTime.Now.Hour.ToString());
        settings.DisplayEventEnd = true;
        settings.NowIndicator = true;
+       settings.ThemeSystem = ThemeSystem.Bootstrap3;
        settings.ClientSideEvents.EventRender = @"function(event, element) {
             element.qtip({
                 content: {
@@ -43,6 +44,9 @@
                     adjust: {
                         x: 10
                     }
+                },
+                style: {
+                    classes: 'qtip-bootstrap qtip-shadow'
                 }
             });
         }";
