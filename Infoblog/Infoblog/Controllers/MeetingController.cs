@@ -77,6 +77,34 @@ namespace Infoblog.Controllers
             return View(model);
         }
 
+        public ActionResult View(int id)
+        {
+            var model = new ApplicationDbContext().Meetings.FirstOrDefault(m => m.Id == id);
+            return View(model);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var model = new ApplicationDbContext().Meetings.FirstOrDefault(m => m.Id == id);
+            return View(model);
+        }
+
+        public ActionResult PollResult(int id)
+        {
+            var ctx = new ApplicationDbContext();
+            var mp = ctx.MeetingPolls.FirstOrDefault(m => m.Id == id);
+            var view = new MeetingPollResultViewModel() {
+                PollId = mp.Id,
+                AuthorId = mp.Author.Id,
+                Title = mp.Title,
+                Content = mp.Content,
+                Participants = mp.Participants,
+                PollOptions = mp.PollOptions
+                
+            };
+            return View(view);
+        }
+
         [System.Web.Mvc.HttpPost]
         public ActionResult CreateMeetingPoll([FromBody]MeetingData meetingData)
         {
@@ -101,13 +129,14 @@ namespace Infoblog.Controllers
             var pollOptions = new List<PollOption>();
             var notification = new SendEmailController();
 
-            
-            foreach(var time in meetingData.MeetingTimes)
+
+            foreach (var time in meetingData.MeetingTimes)
             {
                 var start = DateTime.Parse(time.Split(';')[0]);
                 var end = DateTime.Parse(time.Split(';')[1]);
 
-                var option = new PollOption() {
+                var option = new PollOption()
+                {
                     Start = start,
                     End = end,
                     Votes = 0,
@@ -125,22 +154,6 @@ namespace Infoblog.Controllers
             notification.EmailPollInvitation(mp);
 
             return RedirectToAction("Index");
-        }
-
-        public ActionResult PollResult(int id)
-        {
-            var ctx = new ApplicationDbContext();
-            var mp = ctx.MeetingPolls.FirstOrDefault(m => m.Id == id);
-            var view = new MeetingPollResultViewModel() {
-                PollId = mp.Id,
-                AuthorId = mp.Author.Id,
-                Title = mp.Title,
-                Content = mp.Content,
-                Participants = mp.Participants,
-                PollOptions = mp.PollOptions
-                
-            };
-            return View(view);
         }
 
         [System.Web.Mvc.HttpPost]
@@ -167,16 +180,18 @@ namespace Infoblog.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult View (int id)
+        [System.Web.Mvc.HttpPost]
+        public ActionResult EditMeeting(Meeting meeting)
         {
-            var model = new ApplicationDbContext().Meetings.FirstOrDefault(m => m.Id == id);
-            return View(model);
-        }
-
-        public ActionResult Edit(int id)
-        {
-            var model = new ApplicationDbContext().Meetings.FirstOrDefault(m => m.Id == id); 
-            return View(model);
+            if(ModelState.IsValid)
+            {
+                var ctx = new ApplicationDbContext();
+                var meetingToEdit = ctx.Meetings.SingleOrDefault(m => m.Id == meeting.Id);
+                meetingToEdit.Title = meeting.Title;
+                meetingToEdit.Content = meeting.Content;
+                ctx.SaveChanges();
+            }
+            return RedirectToAction("View", new { id = meeting.Id });
         }
 
     }
