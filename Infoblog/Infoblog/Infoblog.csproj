@@ -257,10 +257,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-Infoblog-20190125011716.mdf" />
-    <Content Include="App_Data\aspnet-Infoblog-20190125011716_log.ldf">
-      <DependentUpon>aspnet-Infoblog-20190125011716.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-journal.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -501,6 +497,7 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>
