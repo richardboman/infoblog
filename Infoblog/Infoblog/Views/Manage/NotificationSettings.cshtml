@@ -8,19 +8,29 @@
 
 @using (Html.BeginForm("UpdateNotificationSettings", "Manage", FormMethod.Post))
 {
-    foreach (var c in Model.MyCategoryInNotifications)
+<ul class="list-group list-group-flush">
+    @foreach (var c in Model.MyCategoryInNotifications)
     {
-            <div class="checkbox">
-                <input type="checkbox" name="checkResp" value="@c.Id" checked>@c.Name<br>
-            </div>
+        <li class="list-group-item">
+            @c.Name
+            <label class="switch">
+                <input type="checkbox" class="default" name="checkResp" value="@c.Id" checked><br>
+                <span class="slider"></span>
+            </label>
+        </li>
     }
 
-    foreach (var c in Model.Categories)
+    @foreach (var c in Model.Categories)
     {
-        <div class="checkbox">
-            <input type="checkbox" name="checkResp" value="@c.Id">@c.Name<br>
-        </div>
+        <li class="list-group-item">
+        @c.Name
+        <label class="switch">
+            <input type="checkbox" class="default" name="checkResp" value="@c.Id"><br>
+            <span class="slider"></span>
+        </label>
+        </li>
     }
+</ul>
 
     <input type="submit" value="Uppdatera" class="btn-default" />
 }
