@@ -10,55 +10,55 @@
     <div id="cool2"> <span id="question">Vilken tid passar er bäst?</span></div>
     <br />
     <div id="coool">
-            <h2 id="author">@Model.Author.FirstName&nbsp;@Model.Author.LastName</h2>
-            <div id="cool3">
-                <p2>Mötestitel:&nbsp;@Model.Title</p2>
+        <h2 id="author">@Model.Author.FirstName&nbsp;@Model.Author.LastName</h2>
+        <div id="cool3">
+            <p2>Mötestitel:&nbsp;@Model.Title</p2>
             <p id="content">@Model.Content</p>
-            </div>
-            @if (Model.Participants != null)
-            {
-                <div id="container">
-                    @*<form>*@
-                        @foreach (var p in Model.PollOptions)
-                        {
-                            <div><span>@p.Votes</span><button id="B1" data-voted="false" data-votes="@p.Votes">Rösta</button>@p.Start-@p.End</div>
+        </div>
+        @if (Model.Participants != null)
+        {
+            <div id="container">
+                <form id="myForm">
+                    @foreach (var p in Model.PollOptions)
+                    {
+                        <div>
+                            <span>@p.Votes</span><button id="B1"
+                                                         type="submit"
+                                                         data-voted="false"
+                                                         data-votes="@p.Votes"
+                                                         data-pollOption="@p.Id"
+                                                         data-poll="@p.MeetingPollId">
+                                Rösta
+                            </button>@p.Start-@p.End
+                        </div>
 
-                        }
-                       @* <input type="submit" />
-                    </form>*@
-                </div>
-            }
+                    }
+
+                </form>
+            </div>
+        }
     </div>
 </body>
 
 @section scripts {
     <script>
-       /* if (this.data("voted") == true)
-        {
-            $(document).ready(function () {
-                let votes = $(this).data("votes");
+        $('#myForm').on('submit', function (e) {
+            e.preventDefault(); //Prevent normal form behavior
+            
+            let btn = $("#B1");
+            
+            
+            let vote = btn.data("votes") + 1;
+            let pollOption = btn.data("polloption");
+            let poll = btn.data("poll");
+            if (poll !== null) {
+                $.get('/api/controller/vote/add?pollId=' + poll + '&votes=' + vote + '&pollOptionId=' + pollOption,
+                    function () {
+                        window.location.reload();
+                    }
+                );
+            }
 
-            });
-        }*/
-
-        $(document).ready(function () {
-            $("#container div button").click(function () {
-                let voted = $(this).data("voted");
-                let voteIndicator = $(this).prev();
-                if (voted) {
-                    $(this).parent().animate({
-                        width: '-=100px'
-                    }, 500);
-                    voteIndicator.html(parseInt(voteIndicator.html()) - 1);
-                    $(this).data("voted", false);
-                    return;
-                }
-                $(this).parent().animate({
-                    width: '+=100px'
-                }, 500);
-                voteIndicator.html(parseInt(voteIndicator.html()) + 1)
-                $(this).data("voted", true);
-            });
         });
     </script>
 }
