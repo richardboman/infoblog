@@ -21,19 +21,20 @@
                 <form id="myForm">
                     @foreach (var p in Model.PollOptions)
                     {
+                        var hasVoted = p.UserVotes.Select(x => x.Email).ToList().Contains(User.Identity.Name);
                         <div>
                             <span>@p.Votes</span><button id="B1"
                                                          type="submit"
-                                                         data-voted="false"
+                                                         disabled=@hasVoted
+                                                         @*data-voted="false"*@
                                                          data-votes="@p.Votes"
                                                          data-pollOption="@p.Id"
                                                          data-poll="@p.MeetingPollId">
-                                Rösta
-                            </button>@p.Start-@p.End
+                            @if (hasVoted) {<span>&#9989</span>}
+                            else { <span>Rösta</span> }
+                            </button>@p.Start - @p.End
                         </div>
-
                     }
-
                 </form>
             </div>
         }

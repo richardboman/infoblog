@@ -26,6 +26,11 @@ namespace Infoblog.Controllers
 
                 polloption.Votes = votes;
 
+                var userEmail = User.Identity.Name;
+                var user = ctx.Users.FirstOrDefault(u => u.Email.Equals(userEmail));
+
+                polloption.UserVotes.Add(user);
+
             };
             ctx.SaveChanges();
         }
