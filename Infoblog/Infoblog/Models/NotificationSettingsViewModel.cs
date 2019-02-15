@@ -8,6 +8,6 @@ namespace Infoblog.Models
     public class NotificationSettingsViewModel
     {
         public List<CategoryModel> Categories { get; set; }
-        public List<int> CategoryIds { get; set; }
+        public List<CategoryModel> MyCategoryInNotifications { get; set; }
     }
 }

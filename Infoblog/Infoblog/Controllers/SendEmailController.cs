@@ -63,15 +63,19 @@ namespace Infoblog.Controllers
         public ActionResult EmailWhenPost(FormalPostModel post)
         {
             try
-            { 
-                var user = System.Web.HttpContext.Current.User.Identity.GetUserName();
+            {
+                var ctx = new ApplicationDbContext();
+                var filter = new List<ApplicationUser>();
+
+                var userInCategory = ctx.Category.Where(c => c.Id == post.CategoryId).SelectMany(c => c.Users);
+                string category = ctx.Category.Where(x => x.Id == post.CategoryId).Select(x => x.Name).SingleOrDefault();
                 if (ModelState.IsValid)
                 {
-                    var ctx = new ApplicationDbContext();
-                    string email = ctx.Users.Where(s => s.Id == user).Select(x => x.Email).SingleOrDefault();
-                    string category = ctx.Category.Where(x => x.Id == post.CategoryId).Select(x => x.Name).SingleOrDefault();
-                    var senderEmail = new MailAddress("oru.infoblog@gmail.com", "Infoblog");
-                        var receiverEmail = new MailAddress(user);
+                    foreach (var u in userInCategory)
+                    {
+                        string email = u.Email;
+                        var senderEmail = new MailAddress("oru.infoblog@gmail.com", "Infoblog");
+                        var receiverEmail = new MailAddress(email);
                         var password = "Aa12345!";
                         var subject = "Nytt blogginlägg";
                         var body = "Ett nytt inlägg om " + category + " har lagts till";
@@ -95,9 +99,11 @@ namespace Infoblog.Controllers
                         }
                         return View();
                     }
+
                 }
             
 
+            }
             catch (Exception)
             {
                 ViewBag.Error = "Some Error";
