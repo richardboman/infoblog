@@ -338,14 +338,25 @@ namespace Infoblog.Controllers
         {
             var ctx = new ApplicationDbContext();
             var model = new NotificationSettingsViewModel();
+            var user = User.Identity.GetUserId();
+            var userInCategory = ctx.Users.Where(u => u.Id == user).SelectMany(u => u.Categories);
             model.Categories = ctx.Category.ToList();
+            foreach(var c in userInCategory.ToList())
+            {
+                var categeory = new CategoryModel();
+                var removeId = model.Categories.Where(a => a.Id == c.Id).First();
+                model.Categories.Remove(removeId);
+            }
+            model.MyCategoryInNotifications = userInCategory.ToList();
             return View(model);
         }
 
         [HttpPost]
         public void UpdateNotificationSettings(FormCollection collection)
         {
-            if (!string.IsNullOrEmpty(collection["checkResp"])) { 
+            if (!string.IsNullOrEmpty(collection["checkResp"]))
+            {
+
 
                 string checkResp = collection["checkResp"];
                 string[] categoryIds = checkResp.Split(',');
@@ -366,7 +377,9 @@ namespace Infoblog.Controllers
                 user.Categories = categoryList;
                 category.Users = userList;
                 ctx.SaveChanges();
-
+            }
+            else
+            {
 
             }
         }

@@ -8,14 +8,23 @@
 
 @using (Html.BeginForm("UpdateNotificationSettings", "Manage", FormMethod.Post))
 {
+    foreach (var c in Model.MyCategoryInNotifications)
+    {
+            <div class="checkbox">
+                <input type="checkbox" name="checkResp" value="@c.Id" checked>@c.Name<br>
+            </div>
+    }
+
     foreach (var c in Model.Categories)
     {
         <div class="checkbox">
             <input type="checkbox" name="checkResp" value="@c.Id">@c.Name<br>
         </div>
     }
+
     <input type="submit" value="Uppdatera" class="btn-default" />
 }
+
 
 
 
