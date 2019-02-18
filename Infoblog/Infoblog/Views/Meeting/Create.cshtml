@@ -155,7 +155,7 @@
     $(function () {
         $('#selectParticipant option').qtip({
             content: {
-                text: $(this: 'selected').val()
+                text: $(this).find('option:selected').val()
             },
             position: {
                 target: 'mouse',
