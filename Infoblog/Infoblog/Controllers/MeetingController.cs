@@ -177,6 +177,11 @@ namespace Infoblog.Controllers
             ctx.Meetings.Add(meeting);
             ctx.MeetingPolls.Remove(poll);
             ctx.SaveChanges();
+            foreach(var p in meeting.Participants.ToList())
+            {
+                SendEmailController.EmailMeeting(p.Email, meeting.Title, meeting.Content, meeting.Start, meeting.End);
+            }
+           
             return RedirectToAction("Index");
         }
 

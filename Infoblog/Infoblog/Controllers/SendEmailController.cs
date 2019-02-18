@@ -153,11 +153,53 @@ namespace Infoblog.Controllers
                 return View();
             }
 
+
+
             catch (Exception)
             {
                 ViewBag.Error = "Some Error";
             }
             return View();
+        }
+
+        [HttpPost]
+        public static void EmailMeeting(string receiver, string subject, string message, DateTime start, DateTime end)
+        {
+            try
+            {
+                
+                
+                    var senderEmail = new MailAddress("oru.infoblog@gmail.com", "Infoblog");
+                    var receiverEmail = new MailAddress(receiver, "Receiver");
+                    var password = "Aa12345!";
+                    var sub = "Mötet " + subject + " är nu inbokat";
+                    var body = "En tid för ett möte har bestämts, mötet kommer ske: " + start + " " + end;
+                    var smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(senderEmail.Address, password)
+                    };
+                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+                    {
+                        Subject = sub,
+                        Body = body
+                    })
+                    {
+
+                        smtp.Send(mess);
+                    }
+                    
+                
+            }
+            catch (Exception)
+            {
+                
+            }
+            
         }
     }
 }
