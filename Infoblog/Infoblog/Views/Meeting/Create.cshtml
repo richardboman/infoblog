@@ -153,6 +153,18 @@
 
 <script type="text/javascript">
     $(function () {
+        $('#selectParticipant option').qtip({
+            content: {
+                text: $(this).find('option:selected').val()
+            },
+            position: {
+                target: 'mouse',
+                adjust: {
+                    x: 10
+                }
+            }
+        });
+        
         var meetingTimes = new Array();
         var participants = new Array();
 

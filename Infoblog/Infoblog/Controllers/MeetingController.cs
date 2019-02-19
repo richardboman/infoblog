@@ -67,7 +67,7 @@ namespace Infoblog.Controllers
             var ctx = new ApplicationDbContext();
             var currentUserId = User.Identity.GetUserId();
             var currentUser = ctx.Users.FirstOrDefault(u => u.Id == currentUserId);
-            var allUsers = ctx.Users.ToList();
+            var allUsers = ctx.Users.OrderBy(u => u.FirstName).ToList();
             allUsers.Remove(currentUser);
             var model = new CreateMeetingViewModel
             {
@@ -177,6 +177,11 @@ namespace Infoblog.Controllers
             ctx.Meetings.Add(meeting);
             ctx.MeetingPolls.Remove(poll);
             ctx.SaveChanges();
+            foreach(var p in meeting.Participants.ToList())
+            {
+                SendEmailController.EmailMeeting(p.Email, meeting.Title, meeting.Content, meeting.Start, meeting.End);
+            }
+           
             return RedirectToAction("Index");
         }
 

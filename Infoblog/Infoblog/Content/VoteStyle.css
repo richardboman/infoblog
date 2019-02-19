@@ -52,7 +52,7 @@
         font-size: 20px;
         color: #fff;
         border-left: 20px solid #eb6864;
-        width: 450px;
+        width: 1000px;
         -webkit-border-radius: 0.5em;
         -moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
         border-radius: 1.5em 1.5em 1.5em 1.5em;
@@ -75,7 +75,7 @@
             }
 
         #B1{
-         background-color: #000;
+         background-color: #16c60c;
          border-radius: 12px;
          font-family: "Arial Narrow", sans-serif;
          padding: 0px 0px;
