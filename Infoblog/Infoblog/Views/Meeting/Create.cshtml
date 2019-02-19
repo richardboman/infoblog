@@ -69,7 +69,7 @@
 
 <div class="row">
     <div class="col-lg-6">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "meetingPollForm" }))
         {
             @Html.AntiForgeryToken()
 
@@ -150,7 +150,8 @@
 
 </div>
 
-
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/Scripts/validationScripts.js")
 <script type="text/javascript">
     $(function () {
         $('#selectParticipant option').qtip({
@@ -164,7 +165,7 @@
                 }
             }
         });
-        
+
         var meetingTimes = new Array();
         var participants = new Array();
 
@@ -172,33 +173,36 @@
         $('#btnAddMeetingTime').on('click', function (ev) {
             ev.preventDefault();
 
-            var startTime =
-                $('#meetingDate').val() + " " +
-                $('#startHours').val() + ":" +
-                $('#startMinutes').val();
+            if ($('#meetingPollForm').valid()) {
+                var startTime =
+                    $('#meetingDate').val() + " " +
+                    $('#startHours').val() + ":" +
+                    $('#startMinutes').val();
 
-            var endTime = $('#meetingDate').val() + " " +
-                $('#endHours').val() + ":" +
-                $('#endMinutes').val();
+                var endTime = $('#meetingDate').val() + " " +
+                    $('#endHours').val() + ":" +
+                    $('#endMinutes').val();
 
-            var meetingTime = startTime + ";" + endTime;
-            
-            var exists = (meetingTimes.indexOf(meetingTime) > -1);
-            if (!exists) {
-                
-                var row = $('<tr></tr>');
-                var start = meetingTime.split(';')[0];
-                var end = meetingTime.split(';')[1];
+                var meetingTime = startTime + ";" + endTime;
 
-                row.append('<td>' + start + " - " + end + '</td>');
+                var exists = (meetingTimes.indexOf(meetingTime) > -1);
+                if (!exists) {
 
-                $('#meetingTimeTable').append(row);
+                    var row = $('<tr></tr>');
+                    var start = meetingTime.split(';')[0];
+                    var end = meetingTime.split(';')[1];
 
-                meetingTimes.push(meetingTime);
-            }    
-            else {
-                alert("Tiden finns redan i listan!");
+                    row.append('<td>' + start + " - " + end + '</td>');
+
+                    $('#meetingTimeTable').append(row);
+
+                    meetingTimes.push(meetingTime);
+                }
+                else {
+                    alert("Tiden finns redan i listan!");
+                }
             }
+
 
         });
 
@@ -227,28 +231,30 @@
         //Skapa mötet
         $('#createMeetingPoll').on('click', function (ev) {
             ev.preventDefault();
+            if ($('#meetingPollForm').valid()) {
+                var userEmails = participants.map(u => u.Email);
 
-            var userEmails = participants.map(u => u.Email);
+                var data = {
+                    Title: $('#Title').val(),
+                    Content: $('#Content').val(),
+                    MeetingTimes: meetingTimes,
+                    Participants: userEmails
 
-            var data = {
-                Title: $('#Title').val(),
-                Content: $('#Content').val(),
-                MeetingTimes: meetingTimes,
-                Participants: userEmails
+                };
 
-            };
-
-            $.ajax({
-                url: '/Meeting/CreateMeetingPoll',
-                type: 'POST',
-                data: data,
-                success: function () {
-                    window.location.href = "/Meeting/Index"
-                },
-                error: function (response) {
-                    alert("Någonting gick fel. Pröva igen!");
-                }
-            });
+                $.ajax({
+                    url: '/Meeting/CreateMeetingPoll',
+                    type: 'POST',
+                    data: data,
+                    success: function () {
+                        window.location.href = "/Meeting/Index"
+                    },
+                    error: function (response) {
+                        alert("Någonting gick fel. Pröva igen!");
+                    }
+                });
+            }
+            
         });
 
     });
