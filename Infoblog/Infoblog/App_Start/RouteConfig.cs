@@ -16,7 +16,7 @@ namespace Infoblog
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Post", action = "ShowPost", id = UrlParameter.Optional }
+                defaults: new { controller = "Calendar", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

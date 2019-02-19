@@ -79,7 +79,7 @@ namespace Infoblog.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("ShowPost", "Post");
+                    return RedirectToAction("Index", "Calendar");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -392,7 +392,7 @@ namespace Infoblog.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Calendar");
         }
 
         //
