@@ -397,7 +397,7 @@ namespace Infoblog.Controllers
                 ctx.SaveChanges();
             }
 
-            return View("NotificationSettings");
+            return RedirectToAction("NotificationSettings");
         }
 
 #region Helpers

@@ -3,37 +3,47 @@
 @{
     ViewBag.Title = "NotificationSettings";
 }
-
-<h2>Notifikationinställningar</h2>
-
-@using (Html.BeginForm("UpdateNotificationSettings", "Manage", FormMethod.Post))
+<div style="text-align:center;">
+<br />
+<h1>Notifikationinställningar</h1>
+ </div>
+@if (Model != null)
 {
-<ul class="list-group list-group-flush">
-    @foreach (var c in Model.MyCategoryInNotifications)
-    {
-        <li class="list-group-item">
-            @c.Name
-            <label class="switch">
-                <input type="checkbox" class="default" name="checkResp" value="@c.Id" checked><br>
-                <span class="slider"></span>
-            </label>
-        </li>
+       using (Html.BeginForm("UpdateNotificationSettings", "Manage", FormMethod.Post)) {
+        
+        <div class="col-md-12">
+            <div class="card" style="margin:80px 60px">
+                <ul class="list-group list-group-flush">
+                    @foreach (var c in Model.MyCategoryInNotifications)
+                    {
+                        <li class="list-group-item">
+                           <h3>@c.Name</h3>
+                            <label class="switch" style="bottom: 40px;">
+                                <input type="checkbox" class="success" value="@c.Id" name="checkResp" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </li>
+                    }
+                    @foreach (var c in Model.Categories)
+                    {
+                        <li class="list-group-item">
+                            <h3>@c.Name</h3>
+                            <label class="switch" style="bottom: 40px;">
+                                <input type="checkbox" class="success" name="checkResp" value="@c.Id">
+                                <span class="slider round"></span>
+                            </label>
+                        </li>
+                    }
+                </ul>
+                <div style ="text-align:center;">
+                <input type="submit" value="Uppdatera" class="btn btn-primary btn-lg" />
+                </div>
+            </div>
+        </div>
     }
-
-    @foreach (var c in Model.Categories)
-    {
-        <li class="list-group-item">
-        @c.Name
-        <label class="switch">
-            <input type="checkbox" class="default" name="checkResp" value="@c.Id"><br>
-            <span class="slider"></span>
-        </label>
-        </li>
-    }
-</ul>
-
-    <input type="submit" value="Uppdatera" class="btn-default" />
 }
+
+
 
 
 

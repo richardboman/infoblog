@@ -97,8 +97,9 @@ namespace Infoblog.Controllers
 
                             smtp.Send(mess);
                         }
-                        return View();
+                        
                     }
+                    return View();
 
                 }
             
